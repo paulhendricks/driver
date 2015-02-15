@@ -11,7 +11,7 @@ driver_post(parameters, token, ...)
 
 \item{token}{a token retrieved with \code{\link{driver_connect}}}
 
-\item{...}{further arguments to httr's DELETE function.}
+\item{...}{further arguments to httr's POST function.}
 }
 \description{
 send a POST request to the Google Drive API

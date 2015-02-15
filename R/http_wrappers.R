@@ -38,7 +38,7 @@ driver_delete <- function(parameters, token, ...){
 #'
 #'@param token a token retrieved with \code{\link{driver_connect}}
 #'
-#'@param ... further arguments to httr's DELETE function.
+#'@param ... further arguments to httr's POST function.
 #'
 #'@importFrom httr POST
 driver_post <- function(parameters, token, ...){
