@@ -128,8 +128,23 @@ list_files <- function(token, max_results = 100, page_token = NULL, simplify = F
   return(result)
 }
 
-update_file_time <- function(){
-  
+#'@title update the time a file was viewed
+#'@description \code{\link{update_file_time}} updates the metadata associated with a specific
+#'file to state that the file was last viewed/modified at [system time].
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param file_id the ID of the file; see \code{\link{file_metadata}} for further
+#'commentary. 
+#'
+#'@param ... further arguments to pass to httr's POST.
+#'
+#'@return TRUE if the file was successfully deleted, an error otherwise.
+#'@export
+update_file_time <- function(token, file_id, ...){
+  parameters <- paste0("files/", file_id, "/touch")
+  driver_post(parameters, token, ...)
+  return(TRUE)
 }
 
 trash_file <- function(){
