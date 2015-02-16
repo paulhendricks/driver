@@ -60,3 +60,17 @@ simplify_response.file_list <- function(x){
 simplify_response.file_metadata <- function(x){
   return(file_simp(x))
 }
+
+rev_simp <- function(x){
+  x$lastModifyingUser <- unlist(x$lastModifyingUser)
+  x$exportLinks <- unlist(x$exportLinks)
+}
+
+simplify_response.rev_list <- function(x){
+  if(length(x$items) == 1){
+    x$items <- rev_simp(x$items[[1]])
+  } else {
+    x$items <- lapply(x$items, rev_simp)
+  }
+  return(x)
+}
