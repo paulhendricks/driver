@@ -203,3 +203,29 @@ empty_trash <- function(token, ...){
   return(FALSE)
 }
 
+#'@title Download a Google Drive file
+#'@description download a Google Drive file in a specified format and save it to disk.
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param metadata a metadata object retrieved from \code{\link{file_metadata}} or
+#'\code{\link{list_files}}.
+#'
+#'@param download_type the format to download the file in. Available formats for a specific file
+#'can be found in the "exportLinks" field of a metadata object.
+#'
+#'@param destination a file path to write the downloaded file to.
+#'
+#'@param ... any further arguments to pass to httr's GET.
+#'
+#'@return TRUE if the file could be downloaded, FALSE or an error otherwise.
+#'@importFrom httr write_disk
+download_file <- function(token, metadata, download_type, destination, ...){
+  download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
+  result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
+                write_disk(destination), ...)
+  if(result$status_code %in% c(200, 202, 204)){
+    return(TRUE)
+  }
+  return(FALSE)
+}
