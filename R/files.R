@@ -147,12 +147,42 @@ update_file_time <- function(token, file_id, ...){
   return(TRUE)
 }
 
-trash_file <- function(){
-  
+#'@title move a file to the trash
+#'@description moves a file to Google Drive's "trash" folder, which is automatically
+#'emptied after a set number of days.
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param file_id the ID of the file; see \code{\link{file_metadata}} for further
+#'commentary. 
+#'
+#'@param ... further arguments to pass to httr's POST.
+#'
+#'@return TRUE if the file was successfully trashed, an error otherwise.
+#'@export
+trash_file <- function(token, file_id, ...){
+  parameters <- paste0("files/", file_id, "/trash")
+  driver_post(parameters, token, ...)
+  return(TRUE)
 }
 
-untrash_file <- function(){
-  
+#'@title move a file out of the trash
+#'@description moves a file in Google Drive's "trash" folder, which is automatically
+#'emptied after a set number of days, out and back into the user's Drive.
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param file_id the ID of the file; see \code{\link{file_metadata}} for further
+#'commentary. 
+#'
+#'@param ... further arguments to pass to httr's POST.
+#'
+#'@return TRUE if the file was successfully untrashed, an error otherwise.
+#'@export
+untrash_file <- function(token, file_id, ...){
+  parameters <- paste0("files/", file_id, "/untrash")
+  driver_post(parameters, token, ...)
+  return(TRUE)
 }
 
 empty_trash <- function(){
