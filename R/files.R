@@ -185,10 +185,21 @@ untrash_file <- function(token, file_id, ...){
   return(TRUE)
 }
 
-empty_trash <- function(){
-  
-}
-watch_file <- function(){
-  
+#'@title Empties the trash
+#'@description empties the user's Google Drive "trash" folder.
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param ... further arguments to pass to httr's DELETE.
+#'
+#'@return TRUE if the trash was successfully emptied, FALSE otherwise.
+#'@export
+empty_trash <- function(token, ...){
+  parameters <- "files/trash"
+  result <- driver_delete(parameters, token, ...)
+  if(result$status_code %in% c(200, 202, 204)){
+    return(TRUE)
+  }
+  return(FALSE)
 }
 
