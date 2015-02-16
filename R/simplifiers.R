@@ -11,7 +11,11 @@ file_simp <- function(x){
 }
 
 simplify_response.file_list <- function(x){
-  x$items <- lapply(x$items, file_simp)
+  if(length(x$items) == 1){
+    x$items <- file_simp(x$items[[1]])
+  } else {
+    x$items <- lapply(x$items, file_simp)
+  }
   return(x)
 }
 
