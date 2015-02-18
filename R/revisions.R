@@ -1,3 +1,24 @@
+#Revision simplifiers. This is the core logic
+rev_simp <- function(x){
+  x$lastModifyingUser <- unlist(x$lastModifyingUser)
+  x$exportLinks <- unlist(x$exportLinks)
+}
+
+#This is the single-rev application.
+simplify_response.rev_metadata <- function(x){
+  return(rev_simp(x))
+}
+
+#...and this is the rev_list application.
+simplify_response.rev_list <- function(x){
+  if(length(x$items) == 1){
+    x$items <- rev_simp(x$items[[1]])
+  } else {
+    x$items <- lapply(x$items, rev_simp)
+  }
+  return(x)
+}
+
 #'@title list revisions of a Google Drive file
 #'@description retrieves the metadata associated with each revision of a specific
 #'Google Drive file.
@@ -36,7 +57,7 @@ list_revisions <- function(token, file_id, simplify = FALSE, ...){
 #'@param ... further arguments to pass to httr's GET.
 #'
 #'@export
-get_revision <- function(token, file_id, rev_id, simplify = FALSE, ...){
+revision_metadata <- function(token, file_id, rev_id, simplify = FALSE, ...){
   parameters <- paste0("files/", file_id, "/revisions/", rev_id)
   result <- driver_get(parameters, "rev_metadata", token, ...)
   if(simplify){
@@ -61,6 +82,31 @@ get_revision <- function(token, file_id, rev_id, simplify = FALSE, ...){
 delete_revision <- function(token, file_id, rev_id, ...){
   parameters <- paste0("files/", file_id, "/revisions/", rev_id)
   result <- driver_delete(parameters, token, ...)
+  return(check_result_status(result))
+}
+
+#'@title Download a specific revision of a Google Drive file
+#'@description download a specific revision of a Google Drive file in
+#'a user-specified format, and save it to disk.
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param metadata a metadata object retrieved from \code{\link{rev_met}} or
+#'\code{\link{list_files}}.
+#'
+#'@param download_type the format to download the file in. Available formats for a specific file
+#'can be found in the "exportLinks" field of a metadata object.
+#'
+#'@param destination a file path to write the downloaded file to.
+#'
+#'@param ... any further arguments to pass to httr's GET.
+#'
+#'@return TRUE if the file could be downloaded, FALSE or an error otherwise.
+#'@export
+download_revision <- function(token, metadata, download_type, destination, ...){
+  download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
+  result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
+                write_disk(destination), ...)
   return(check_result_status(result))
 }
 

@@ -1,3 +1,27 @@
+#Simplifiers for file content. This is the actual workhorse function.
+file_simp <- function(x){
+  x$labels <- unlist(x$labels)
+  x$exportLinks <- unlist(x$exportLinks)
+  x$userPermission <- unlist(x$userPermission)
+  x$ownerNames <- unlist(x$ownerNames)
+  return(x)
+}
+
+#And this is the wrapper for file lists.
+simplify_response.file_list <- function(x){
+  if(length(x$items) == 1){
+    x$items <- file_simp(x$items[[1]])
+  } else {
+    x$items <- lapply(x$items, file_simp)
+  }
+  return(x)
+}
+
+#...and THIS is the wrapper for individual files!
+simplify_response.file_metadata <- function(x){
+  return(file_simp(x))
+}
+
 #'@title Retrieve the metadata for a specific file.
 #'
 #'@description \code{file_metadata} retrieves the metadata for a specific file the user
@@ -209,6 +233,7 @@ empty_trash <- function(token, ...){
 #'
 #'@return TRUE if the file could be downloaded, FALSE or an error otherwise.
 #'@importFrom httr write_disk
+#'@export
 download_file <- function(token, metadata, download_type, destination, ...){
   download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
   result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),

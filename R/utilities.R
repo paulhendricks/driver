@@ -45,42 +45,8 @@ driver_connect <- function(id, secret){
   return(token)
 }
 
-#Simplifiers
+#Base simplifier function, calling class-specific methods. Those are stored
+#in the relevant file (so, file_list's simplifier lives in files.R)
 simplify_response <- function(x){
   UseMethod("simplify_response", x)
-}
-
-file_simp <- function(x){
-  x$labels <- unlist(x$labels)
-  x$exportLinks <- unlist(x$exportLinks)
-  x$userPermission <- unlist(x$userPermission)
-  x$ownerNames <- unlist(x$ownerNames)
-  return(x)
-}
-
-simplify_response.file_list <- function(x){
-  if(length(x$items) == 1){
-    x$items <- file_simp(x$items[[1]])
-  } else {
-    x$items <- lapply(x$items, file_simp)
-  }
-  return(x)
-}
-
-simplify_response.file_metadata <- function(x){
-  return(file_simp(x))
-}
-
-rev_simp <- function(x){
-  x$lastModifyingUser <- unlist(x$lastModifyingUser)
-  x$exportLinks <- unlist(x$exportLinks)
-}
-
-simplify_response.rev_list <- function(x){
-  if(length(x$items) == 1){
-    x$items <- rev_simp(x$items[[1]])
-  } else {
-    x$items <- lapply(x$items, rev_simp)
-  }
-  return(x)
 }
