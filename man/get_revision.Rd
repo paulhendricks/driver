@@ -15,6 +15,8 @@ get_revision(token, file_id, rev_id, simplify = FALSE, ...)
 
 \item{simplify}{whether or not to perform some (small) simplification of the returned
 list, to make it less nested, headachey and impossible to read. Set to FALSE by default.}
+
+\item{...}{further arguments to pass to httr's GET.}
 }
 \description{
 retrieves the metadata associated with a particular revision of a specific
