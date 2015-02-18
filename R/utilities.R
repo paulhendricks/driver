@@ -16,7 +16,7 @@ create_url <- function(parameters){
 #'
 #'@param id the clientID of the client app you've created (see above).
 #'
-#'@param the secret of the client app you've created (see above).
+#'@param secret the secret of the client app you've created (see above).
 #'
 #'@return an OAuth token that can be passed into other function calls.
 #'

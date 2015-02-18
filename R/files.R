@@ -31,10 +31,6 @@ file_metadata <- function(token, file_id, simplify = FALSE, ...){
   return(result)
 }
 
-#'@title create an empty file, or upload a local file
-#'
-#'@importFrom httr upload_file
-#'
 create_file <- function(token, file_path = NULL, ...){
   parameters <- "files?uploadType=media"
   if(is.null(file_path)){
@@ -99,7 +95,7 @@ delete_file <- function(token, file_id, ...){
 #'
 #'@description \code{list_files} allows an authenticated user to retrieve the metadata
 #'associated with each file they have access to. For the metadata for a single file, see
-#'\code{\link{get_file_metadata}}.
+#'\code{\link{file_metadata}}.
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'

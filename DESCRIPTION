@@ -8,3 +8,4 @@ Maintainer: Oliver Keyes <okeyes@wikimedia.org>
 Description: A client library for the Google Drive API; download and upload files,
   post comments, retrieve metadata and manipulate permissions.
 License: MIT + file LICENSE
+Depends: httr

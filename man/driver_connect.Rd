@@ -9,7 +9,7 @@ driver_connect(id, secret)
 \arguments{
 \item{id}{the clientID of the client app you've created (see above).}
 
-\item{the}{secret of the client app you've created (see above).}
+\item{secret}{the secret of the client app you've created (see above).}
 }
 \value{
 an OAuth token that can be passed into other function calls.

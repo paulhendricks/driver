@@ -25,6 +25,6 @@ list, to make it less nested, headachey and impossible to read. Set to FALSE by 
 \description{
 \code{list_files} allows an authenticated user to retrieve the metadata
 associated with each file they have access to. For the metadata for a single file, see
-\code{\link{get_file_metadata}}.
+\code{\link{file_metadata}}.
 }
 
