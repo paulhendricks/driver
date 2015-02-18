@@ -84,11 +84,7 @@ copy_file <- function(token, file_id, ...){
 delete_file <- function(token, file_id, ...){
   parameters <- paste0("files/", file_id)
   result <- driver_delete(parameters, token)
-  if(result$status_code %in% c(200, 202, 204)){
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
+  return(check_result_status(result))
 }
 
 #'@title Retrieve the metadata for all files
@@ -193,10 +189,7 @@ untrash_file <- function(token, file_id, ...){
 empty_trash <- function(token, ...){
   parameters <- "files/trash"
   result <- driver_delete(parameters, token, ...)
-  if(result$status_code %in% c(200, 202, 204)){
-    return(TRUE)
-  }
-  return(FALSE)
+  return(check_result_status(result))
 }
 
 #'@title Download a Google Drive file
@@ -220,8 +213,5 @@ download_file <- function(token, metadata, download_type, destination, ...){
   download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
   result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
                 write_disk(destination), ...)
-  if(result$status_code %in% c(200, 202, 204)){
-    return(TRUE)
-  }
-  return(FALSE)
+  return(check_result_status(result))
 }

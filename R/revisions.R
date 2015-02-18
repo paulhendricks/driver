@@ -38,11 +38,11 @@ list_revisions <- function(token, file_id, simplify = FALSE, ...){
 #'@export
 get_revision <- function(token, file_id, rev_id, simplify = FALSE, ...){
   parameters <- paste0("files/", file_id, "/revisions/", rev_id)
-  results <- driver_get(parameters, "rev_metadata", token, ...)
+  result <- driver_get(parameters, "rev_metadata", token, ...)
   if(simplify){
-    results <- simplify_response(results)
+    result <- simplify_response(result)
   }
-  return(results)
+  return(result)
 }
 
 #'@title remove a particular revision of a Google Drive file
@@ -60,8 +60,8 @@ get_revision <- function(token, file_id, rev_id, simplify = FALSE, ...){
 #'@export
 delete_revision <- function(token, file_id, rev_id, ...){
   parameters <- paste0("files/", file_id, "/revisions/", rev_id)
-  results <- driver_delete(parameters, token, ...)
-  return(results)
+  result <- driver_delete(parameters, token, ...)
+  return(check_result_status(result))
 }
 
 update_revision <- function(token, file_id, rev_id, ...){
