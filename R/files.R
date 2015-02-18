@@ -34,7 +34,7 @@ file_metadata <- function(token, file_id, simplify = FALSE, ...){
 #'@title create an empty file, or upload a local file
 #'
 #'@importFrom httr upload_file
-#'@export
+#'
 create_file <- function(token, file_path = NULL, ...){
   parameters <- "files?uploadType=media"
   if(is.null(file_path)){
