@@ -25,6 +25,9 @@ delete_reply <- function(token, file_id, comment_id, reply_id, ...){
 
 #'@title get a reply's metadata and text
 #'
+#'@description retrieve the metadata and text for a specific reply to a comment in a
+#'Google Drive file.
+#'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
@@ -52,6 +55,28 @@ get_reply <- function(token, file_id, comment_id, reply_id, simplify = FALSE, ..
   return(results)
 }
 
+#'@title Get all replies to a comment
+#'@description retrieves the metadata and text of all replies to a comment in a
+#'Google Drive file.
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'
+#'@param comment_id the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}
+#'
+#'@param comment_id the ID of a comment, which can be found in the output of \code{\link{list_comments}}
+#'or \code{\link{list_replies}}
+#'
+#'@param simplify whether or not to perform some (small) simplification of the returned
+#'list, to make it less nested, headachey and impossible to read. Set to FALSE by default.
+#'
+#'@param ... further arguments to pass to httr's GET
+#'
+#'@seealso \code{\link{delete_reply}} for deleting a reply, and \code{\link{get_reply}}
+#'for retrieving a specific reply.
+#'
+#'@export
 list_replies <- function(token, file_id, comment_id, simplify = FALSE, ...){
   parameters <- paste0("files/", file_id, "/comments/", comment_id)
   results <- driver_get(parameters, "reply_list", token, ...)
