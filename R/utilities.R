@@ -45,6 +45,20 @@ driver_connect <- function(id, secret){
   return(token)
 }
 
+#'@importFrom mime guess_type
+#'@importFrom jsonlite toJSON
+upload_json <- function(file, title = NULL, description = NULL){
+  mime <- guess_type(file)
+  output <- list(mimeType = mime)
+  if(!is.null(title)){
+    output$title = title
+  }
+  if(!is.null(description)){
+    output$description = description
+  }
+  return(toJSON(output))
+}
+
 #Base simplifier function, calling class-specific methods. Those are stored
 #in the relevant file (so, file_list's simplifier lives in files.R)
 simplify_response <- function(x){
