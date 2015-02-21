@@ -2,7 +2,7 @@
 % Please edit documentation in R/replies.R
 \name{delete_reply}
 \alias{delete_reply}
-\title{delete a reply to a comment in a Google Drive file}
+\title{delete a reply}
 \usage{
 delete_reply(token, file_id, comment_id, reply_id, ...)
 }
