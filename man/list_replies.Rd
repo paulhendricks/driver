@@ -11,15 +11,12 @@ list_replies(token, file_id, comment_id, simplify = FALSE, ...)
 
 \item{file_id}{the ID of a file - see \code{\link{file_metadata}} for further discussion.}
 
-\item{comment_id}{the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}}
+\item{comment_id}{the ID of a comment, which can be found in the output of \code{\link{list_comments}}}
 
 \item{simplify}{whether or not to perform some (small) simplification of the returned
 list, to make it less nested, headachey and impossible to read. Set to FALSE by default.}
 
 \item{...}{further arguments to pass to httr's GET}
-
-\item{comment_id}{the ID of a comment, which can be found in the output of \code{\link{list_comments}}
-or \code{\link{list_replies}}}
 }
 \description{
 retrieves the metadata and text of all replies to a comment in a

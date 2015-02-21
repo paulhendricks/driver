@@ -13,13 +13,12 @@ get_reply(token, file_id, comment_id, reply_id, simplify = FALSE, ...)
 
 \item{comment_id}{the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}}
 
+\item{reply_id}{the ID of a comment, which can be found in the output of \code{\link{list_replies}}}
+
 \item{simplify}{whether or not to perform some (small) simplification of the returned
 list, to make it less nested, headachey and impossible to read. Set to FALSE by default.}
 
 \item{...}{further arguments to pass to httr's GET}
-
-\item{comment_id}{the ID of a comment, which can be found in the output of \code{\link{list_comments}}
-or \code{\link{list_replies}}}
 }
 \description{
 retrieve the metadata and text for a specific reply to a comment in a

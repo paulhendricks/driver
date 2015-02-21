@@ -91,7 +91,7 @@ delete_revision <- function(token, file_id, rev_id, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param metadata a metadata object retrieved from \code{\link{rev_met}} or
+#'@param metadata a metadata object retrieved from \code{\link{revision_metadata}} or
 #'\code{\link{list_files}}.
 #'
 #'@param download_type the format to download the file in. Available formats for a specific file

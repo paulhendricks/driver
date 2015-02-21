@@ -13,7 +13,7 @@ simplify_response.comment <- function(x){
 
 #Third, a comment_list from list_comments
 simplify_response.comment_list <- function(x){
-  if(length(test$items) == 1){
+  if(length(x$items) == 1){
     x$items <- comment_simp(x$items[[1]])
   } else {
     x$items <- lapply(x$items, comment_simp)

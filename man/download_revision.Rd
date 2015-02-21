@@ -9,7 +9,7 @@ download_revision(token, metadata, download_type, destination, ...)
 \arguments{
 \item{token}{a token, generated with \code{\link{driver_connect}}.}
 
-\item{metadata}{a metadata object retrieved from \code{\link{rev_met}} or
+\item{metadata}{a metadata object retrieved from \code{\link{revision_metadata}} or
 \code{\link{list_files}}.}
 
 \item{download_type}{the format to download the file in. Available formats for a specific file

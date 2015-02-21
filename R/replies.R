@@ -8,7 +8,7 @@
 #'
 #'@param comment_id the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}
 #'
-#'@param comment_id the ID of a comment, which can be easily retrieved with \code{\link{list_replies}}
+#'@param reply_id the ID of a comment, which can be easily retrieved with \code{\link{list_replies}}
 #'or \code{\link{get_reply}}
 #'
 #'@param ... further arguments to pass to httr's DELETE
@@ -34,8 +34,7 @@ delete_reply <- function(token, file_id, comment_id, reply_id, ...){
 #'
 #'@param comment_id the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}
 #'
-#'@param comment_id the ID of a comment, which can be found in the output of \code{\link{list_comments}}
-#'or \code{\link{list_replies}}
+#'@param reply_id the ID of a comment, which can be found in the output of \code{\link{list_replies}}
 #'
 #'@param simplify whether or not to perform some (small) simplification of the returned
 #'list, to make it less nested, headachey and impossible to read. Set to FALSE by default.
@@ -63,10 +62,7 @@ get_reply <- function(token, file_id, comment_id, reply_id, simplify = FALSE, ..
 #'
 #'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
 #'
-#'@param comment_id the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}
-#'
 #'@param comment_id the ID of a comment, which can be found in the output of \code{\link{list_comments}}
-#'or \code{\link{list_replies}}
 #'
 #'@param simplify whether or not to perform some (small) simplification of the returned
 #'list, to make it less nested, headachey and impossible to read. Set to FALSE by default.

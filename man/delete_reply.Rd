@@ -13,10 +13,10 @@ delete_reply(token, file_id, comment_id, reply_id, ...)
 
 \item{comment_id}{the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}}
 
-\item{...}{further arguments to pass to httr's DELETE}
-
-\item{comment_id}{the ID of a comment, which can be easily retrieved with \code{\link{list_replies}}
+\item{reply_id}{the ID of a comment, which can be easily retrieved with \code{\link{list_replies}}
 or \code{\link{get_reply}}}
+
+\item{...}{further arguments to pass to httr's DELETE}
 }
 \description{
 when provided with the relevant file, comment and reply IDs, \code{\link{delete_reply}}
