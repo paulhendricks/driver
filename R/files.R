@@ -55,14 +55,12 @@ file_metadata <- function(token, file_id, simplify = FALSE, ...){
   return(result)
 }
 
-create_file <- function(token, file_path = NULL, ...){
-  parameters <- "files?uploadType=media"
-  if(is.null(file_path)){
-    result <- driver_post(parameters, token, ...)
-  } else {
-    result <- driver_post(parameters, token, body = upload_file(file_path), ...)
-  }
+create_file <- function(token, file_path = NULL, title = NULL, description = NULL, ...){
+  parameters <- "files"
+  json <- upload_json(file_path, title, description)
+  result <- driver_post(parameters, token, body = json, ...)
   return(result)
+  
 }
 
 update_file <- function(){
