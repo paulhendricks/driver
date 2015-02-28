@@ -15,7 +15,7 @@ commentary.}
 \item{...}{further arguments to pass to httr's POST.}
 }
 \value{
-TRUE if the file was successfully deleted, an error otherwise.
+TRUE if the file was successfully updated, an error otherwise.
 }
 \description{
 \code{\link{update_file_time}} updates the metadata associated with a specific

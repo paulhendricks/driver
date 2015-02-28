@@ -9,11 +9,7 @@ file_simp <- function(x){
 
 #And this is the wrapper for file lists.
 simplify_response.file_list <- function(x){
-  if(length(x$items) == 1){
-    x$items <- file_simp(x$items[[1]])
-  } else {
-    x$items <- lapply(x$items, file_simp)
-  }
+  x$items <- lapply(x$items, file_simp)
   return(x)
 }
 
@@ -153,7 +149,7 @@ list_files <- function(token, max_results = 100, page_token = NULL, simplify = F
 #'
 #'@param ... further arguments to pass to httr's POST.
 #'
-#'@return TRUE if the file was successfully deleted, an error otherwise.
+#'@return TRUE if the file was successfully updated, an error otherwise.
 #'@export
 update_file_time <- function(token, file_id, ...){
   parameters <- paste0("files/", file_id, "/touch")
