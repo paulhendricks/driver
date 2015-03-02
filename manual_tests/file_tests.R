@@ -43,5 +43,4 @@ test_that("File deletion works",{
   result <- delete_file(token, file) #Of course, we just created it with "File copying works", so deleting it is fine.
   expect_true(result)
   
-  
 })
