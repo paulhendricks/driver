@@ -1,5 +1,8 @@
 #Creates a Google Drive APIv2 URL. Little wrapper around paste0().
 create_url <- function(parameters){
+  if(grepl(x = parameters, pattern = "https?://")){
+    return(parameters)
+  }
   return(paste0("https://www.googleapis.com/drive/v2/",parameters))
 }
 
@@ -43,20 +46,6 @@ driver_connect <- function(id, secret){
   token <- oauth2.0_token(oauth_endpoints("google"), app = app,
                           scope = "https://www.googleapis.com/auth/drive", cache = FALSE)
   return(token)
-}
-
-#'@importFrom mime guess_type
-#'@importFrom jsonlite toJSON
-upload_json <- function(file, title = NULL, description = NULL){
-  mime <- guess_type(file)
-  output <- list(mimeType = mime)
-  if(!is.null(title)){
-    output$title = title
-  }
-  if(!is.null(description)){
-    output$description = description
-  }
-  return(toJSON(output))
 }
 
 #Base simplifier function, calling class-specific methods. Those are stored
