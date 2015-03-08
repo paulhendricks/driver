@@ -35,9 +35,21 @@ test_that("File copying works", {
   expect_that(file$mimeType, equals(copy_result$mimeType)) #Expect they have matching MIME types. Copies, right?
 })
 
+test_that("File trashing works", {
+  file_id <- list_files(token, max_results = 1)$items[[1]]$id #Get file_id
+  trash_result <- trash_file(token, file_id) #Trash
+  expect_true(trash_result) #It worked?
+  is_trashed <- list_files(token, max_results = 1)$items[[1]]$labels$trashed #Get trashed status
+  expect_true(is_trashed) #Which should be true.
+})
 
-#Insert trashing/untrashing experiments here where they can take advantage of the copy which
-#hasn't yet been consumed by the file deletion testing.
+test_that("File untrashing works", {
+  file_id <- list_files(token, max_results = 1)$items[[1]]$id #Get file_id
+  untrash_result <- untrash_file(token, file_id) #Untrash
+  expect_true(untrash_result) #Untrashing /claims/ to have worked?
+  is_trashed <- list_files(token, max_results = 1)$items[[1]]$labels$trashed #Get trashed status
+  expect_false(is_trashed) #Which should be false.
+})
 
 test_that("File deletion works",{
   file <- list_files(token, max_results = 1)$items[[1]]$id #Get the most recent fileID.
