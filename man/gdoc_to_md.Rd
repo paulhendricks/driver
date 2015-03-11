@@ -25,12 +25,6 @@ Converts the HTML exported by from a Google document (retrieved
 by \code{download_file(..., download_type='text/html')} to a markdown file,
 pre-processing to deal with Google Doc's particular formatting.
 }
-\examples{
-\dontrun{
-#Once we've authenticated and grabbed a token, we can grab the metadata for the example file:
-example_metadata <- file_metadata(token, "1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg")
-}
-}
 \seealso{
 \code{\link{download_file}}, \code{\link[rmarkdown]{pandoc_convert}}
 }
