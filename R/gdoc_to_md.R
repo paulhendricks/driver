@@ -18,11 +18,6 @@
 #'
 #'@seealso \code{\link{download_file}}, \code{\link[rmarkdown]{pandoc_convert}}
 #'
-#'@examples
-#'\dontrun{
-#'#Once we've authenticated and grabbed a token, we can grab the metadata for the example file:
-#'example_metadata <- file_metadata(token, "1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg")
-#'}
 #' @export
 #' @importFrom rmarkdown pandoc_convert
 gdoc_to_md = function(input_html, output_file=NULL, ...) {
@@ -37,7 +32,7 @@ gdoc_to_md = function(input_html, output_file=NULL, ...) {
   
   pandoc_convert(input = tmp_html, from="html", 
                  to = "markdown-raw_html-header_attributes", 
-                 output = outfile, ...)
+                 output = outfile, wd=getwd(), ...)
   
   if(is.null(output_file)) {
     return(readChar(outfile, file.info(outfile)$size))
