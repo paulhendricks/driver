@@ -9,3 +9,4 @@ Description: A client library for the Google Drive API; download and upload file
   post comments, retrieve metadata and manipulate permissions.
 License: MIT + file LICENSE
 Depends: httr
+Imports: XML, stringi, rmarkdown
