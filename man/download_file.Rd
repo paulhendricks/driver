@@ -4,7 +4,8 @@
 \alias{download_file}
 \title{Download a Google Drive file}
 \usage{
-download_file(token, metadata, download_type, destination, ...)
+download_file(token, metadata, download_type, destination, overwrite = TRUE,
+  ...)
 }
 \arguments{
 \item{token}{a token, generated with \code{\link{driver_connect}}.}
@@ -16,6 +17,9 @@ download_file(token, metadata, download_type, destination, ...)
 can be found in the "exportLinks" field of a metadata object.}
 
 \item{destination}{a file path to write the downloaded file to.}
+
+\item{overwrite}{whether to overwrite any existing file at \code{destination}. Set to TRUE
+by default.}
 
 \item{...}{any further arguments to pass to httr's GET.}
 }

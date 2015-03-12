@@ -59,7 +59,7 @@ create_file <- function(token, file_path = NULL, title = NULL, description = NUL
   
 }
 
-update_file <- function(){
+update_file_metadata <- function(){
   
 }
 
@@ -223,14 +223,35 @@ empty_trash <- function(token, ...){
 #'
 #'@param destination a file path to write the downloaded file to.
 #'
+#'@param overwrite whether to overwrite any existing file at \code{destination}. Set to TRUE
+#'by default.
+#'
 #'@param ... any further arguments to pass to httr's GET.
 #'
 #'@return TRUE if the file could be downloaded, FALSE or an error otherwise.
 #'@importFrom httr write_disk
 #'@export
-download_file <- function(token, metadata, download_type, destination, ...){
+download_file <- function(token, metadata, download_type, destination, overwrite = TRUE, ...){
   download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
   result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
                 write_disk(destination), ...)
   return(check_result_status(result))
+}
+
+#'@importFrom httr upload_file
+#'@export
+upload_file <- function(token, file_path, title = NULL, description = NULL, as_boolean = FALSE, ...){
+  post_result <- driver_post(parameters = "https://www.googleapis.com/upload/drive/v2/files?uploadType=media", 
+                             token = token, body = list(x = upload_file(file_path)))
+  if(all(is.null(title), is.null(description))){
+    return(post_result)
+  }
+  if(!is.null(title)){
+    post_result$title <- title
+  }
+  if(is.null(description)){
+    post_result$description <- description
+  }
+  patch_result <- driver_patch(post_result$id, token, body = post_result, encode = "json")
+  return(patch_result)
 }
