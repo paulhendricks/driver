@@ -95,3 +95,34 @@ list_comments <- function(token, file_id, simplify = FALSE, ...){
   }
   return(results)
 }
+
+#'@title comment on a Google Drive file
+#'
+#'@description add a comment to a Google Drive file. These comments are not (currently) anchored,
+#'meaning that they're associated with the file as a whole rather than tied to any particular element
+#'or line of text.
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'
+#'@param comment_text a string containing the comment you wish to leave
+#'
+#'@param ... further arguments to pass to httr's POST
+#'
+#'@return a basic comment object, similar to those returned from \code{\link{get_comment}}
+#'
+#'@seealso \code{\link{upload_file}} for uploading a file, and \code{\link{add_reply}} for replying
+#'to an existing comment.
+#'
+#'@examples
+#'\dontrun{
+#'file_id <- list_files(token, max_results = 1)$items[[1]]$id
+#'comment_metadata <- add_comment(token, file_id, comment = text = "I have strong negative opinions
+#'                                about this proposal but no actual idea for how to improve it")
+#'}
+#'@export
+add_comment <- function(token, file_id, comment_text, ...){
+  result <- driver_post(paste0("files/",file_id,"/comments"), token, body = list(content = comment_text), encode = "json", ...)
+  return(result)
+}

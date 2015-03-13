@@ -109,7 +109,3 @@ download_revision <- function(token, metadata, download_type, destination, ...){
                 write_disk(destination), ...)
   return(check_result_status(result))
 }
-
-update_revision <- function(token, file_id, rev_id, ...){
-  driver_put
-}
