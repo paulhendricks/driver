@@ -17,7 +17,7 @@ download_file(..., download_type='text/html')}
 }
 \value{
 If no \code{output_file} is specified, the markdown output is
-returned as a character.  If \code{output_file} is specified, the markdown is
+returned as a character. If \code{output_file} is specified, the markdown is
 written to this file and also returned invisibly.
 }
 \description{
