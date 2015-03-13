@@ -145,6 +145,27 @@ update_file_time <- function(token, file_id, ...){
   return(TRUE)
 }
 
+#'@title update the metadata associated with a Google Drive file
+#'
+#'@description \code{update_file_metadata} allows you to update the metadata associated
+#'with a file on Google Drive - for example, changing the title or description, or modifying
+#'the permissions.
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param metadata a blob of metadata retrieved from \code{\link{get_metadata}}, with your modifications
+#'made to it.
+#'
+#'@param ... further arguments to pass to httr's PATCH.
+#'
+#'@return the new metadata associated with the file, allowing you to confirm the changes took effect.
+#'
+#'@export
+update_file_metadata <- function(token, metadata, ...){
+  patch_result <- driver_put(paste0("files/",metadata$id), token, body = metadata, encode = "json")
+  return(patch_result)
+}
+
 #'@title move a file to the trash
 #'@description moves a file to Google Drive's "trash" folder, which is automatically
 #'emptied after a set number of days.
