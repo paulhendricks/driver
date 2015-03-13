@@ -5,7 +5,7 @@ An R API wrapper for Google Drive
 
 __Author:__ Oliver Keyes<br/>
 __License:__ [MIT](http://opensource.org/licenses/MIT)<br/>
-__Status:__ In development
+__Status:__ In development [![Build Status](https://travis-ci.org/ironholds/driver.png?branch=master)](https://travis-ci.org/ironholds/driver)
 
 Description
 ======
