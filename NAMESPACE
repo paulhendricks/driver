@@ -21,11 +21,8 @@ export(revision_metadata)
 export(trash_file)
 export(untrash_file)
 export(update_file_time)
-<<<<<<< HEAD
 export(upload_file)
-=======
 import(XML)
->>>>>>> Adding Google Doc HTML to Markdown function
 importFrom(httr,DELETE)
 importFrom(httr,GET)
 importFrom(httr,POST)
