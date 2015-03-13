@@ -2,4 +2,4 @@
 ^\.Rproj\.user$
 ^\.httr-oauth$
 ^\.travis\.yml$
-manual_tests/*
+tests/testthat/token_file.rds.enc

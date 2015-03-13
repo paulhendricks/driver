@@ -10,3 +10,4 @@ Description: A client library for the Google Drive API; download and upload file
 License: MIT + file LICENSE
 Depends: httr
 Imports: XML, stringi, rmarkdown
+Suggests: testthat
