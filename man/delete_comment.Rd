@@ -23,6 +23,13 @@ TRUE if the comment was successfully deleted, FALSE otherwise.
 and a comment ID, will let you delete a comment automatically. It's worth noting that this will
 /also/ junk any replies to the initial comment.
 }
+\examples{
+\dontrun{
+#Grab a list of comments in a file and delete the first one
+comments <- list_comments(token = token, file_id = "f38rggruFKJad30")
+delete_comment(token, "f38rggruFKJad30", comments$items[[1]]$id)
+}
+}
 \seealso{
 \code{\link{list_comments}} to retrieve comment metadata (including the comment
 IDs) for a file.

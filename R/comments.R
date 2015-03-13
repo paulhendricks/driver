@@ -36,7 +36,15 @@ simplify_response.comment_list <- function(x){
 #'
 #'@seealso \code{\link{list_comments}} to retrieve comment metadata (including the comment
 #'IDs) for a file.
+#'
 #'@return TRUE if the comment was successfully deleted, FALSE otherwise.
+#'
+#'@examples
+#'\dontrun{
+#'#Grab a list of comments in a file and delete the first one
+#'comments <- list_comments(token = token, file_id = "f38rggruFKJad30")
+#'delete_comment(token, "f38rggruFKJad30", comments$items[[1]]$id)
+#'}
 #'@export
 delete_comment <- function(token, file_id, comment_id, ...){
   parameters <- paste0("files/", file_id, "/comments/", comment_id)
