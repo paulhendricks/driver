@@ -10,7 +10,8 @@
 #'
 #'@importFrom httr GET
 driver_get <- function(parameters, out_class, token, ...){
-  result <- GET(create_url(parameters), config(token = token, useragent = "driver - https://github.com/Ironholds/driver"))
+  result <- GET(create_url(parameters), config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
+                ...)
   stop_for_status(result)
   result <- content(result)
   class(result) <- out_class
@@ -42,23 +43,24 @@ driver_delete <- function(parameters, token, ...){
 #'
 #'@importFrom httr POST
 driver_post <- function(parameters, token, ...){
-  result <- POST(create_url(parameters), config(token = token, useragent = "driver - https://github.com/Ironholds/driver"), ...)
+  result <- POST(create_url(parameters), config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
+                 ...)
   stop_for_status(result)
   result <- content(result)
   return(result)
 }
 
-#'@title send a PATCH request to the Google Drive API
+#'@title send a PUT request to the Google Drive API
 #'
 #'@param parameters a constructed query string passed from one of the exported functions.
 #'
 #'@param token a token retrieved with \code{\link{driver_connect}}
 #'
-#'@param ... further arguments to httr's PATCH function.
+#'@param ... further arguments to httr's PUT function.
 #'
-#'@importFrom httr PATCH
-driver_patch <- function(parameters, token, ...){
-  result <- PATCH(create_url(parameters), config(token = token, useragent = "driver - https://github.com/Ironholds/driver"), ...)
+#'@importFrom httr PUT
+driver_put <- function(parameters, token, ...){
+  result <- PUT(create_url(parameters), config(token = token, useragent = "driver - https://github.com/Ironholds/driver"), ...)
   stop_for_status(result)
   result <- content(result)
   return(result)

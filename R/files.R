@@ -51,18 +51,6 @@ file_metadata <- function(token, file_id, simplify = FALSE, ...){
   return(result)
 }
 
-create_file <- function(token, file_path = NULL, title = NULL, description = NULL, ...){
-  parameters <- "files"
-  json <- upload_json(file_path, title, description)
-  result <- driver_post(parameters, token, body = json, ...)
-  return(result)
-  
-}
-
-update_file_metadata <- function(){
-  
-}
-
 #'@title copy a Google Drive file
 #'@description takes a Google Drive file and creates a copy of it, with the same
 #'access restrictions.
@@ -238,11 +226,27 @@ download_file <- function(token, metadata, download_type, destination, overwrite
   return(check_result_status(result))
 }
 
+#'@title Upload a local file to Google Drive
+#'
+#'@description \code{upload_file} allows you to upload a locally-stored file to Google Drive, setting title and
+#'description along the way if you so choose.
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param file_path the full path to the file you want to upload
+#'
+#'@param title what to set in the "title" field of the resulting Google Drive file
+#'
+#'@param description what to set in the "description" field.
+#'
+#'@return a metadata object referring to the uploaded file, which can be used in subsequent requests. Matches the
+#'output format of \code{\link{get_metadata}}
+#'
 #'@importFrom httr upload_file
 #'@export
-upload_file <- function(token, file_path, title = NULL, description = NULL, as_boolean = FALSE, ...){
+upload_file <- function(token, file_path, title = NULL, description = NULL, ...){
   post_result <- driver_post(parameters = "https://www.googleapis.com/upload/drive/v2/files?uploadType=media", 
-                             token = token, body = list(x = upload_file(file_path)))
+                             token = token, body = httr::upload_file(file_path), ...)
   if(all(is.null(title), is.null(description))){
     return(post_result)
   }
@@ -252,6 +256,6 @@ upload_file <- function(token, file_path, title = NULL, description = NULL, as_b
   if(is.null(description)){
     post_result$description <- description
   }
-  patch_result <- driver_patch(post_result$id, token, body = post_result, encode = "json")
+  patch_result <- driver_put(paste0("files/",post_result$id), token, body = post_result, encode = "json")
   return(patch_result)
 }
