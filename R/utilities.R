@@ -44,7 +44,7 @@ check_result_status <- function(result){
 driver_connect <- function(id, secret){
   app <- oauth_app("driver", id, secret)
   token <- oauth2.0_token(oauth_endpoints("google"), app = app,
-                          scope = "https://www.googleapis.com/auth/drive", cache = FALSE)
+                            scope = "https://www.googleapis.com/auth/drive", cache = FALSE)
   return(token)
 }
 
