@@ -11,8 +11,7 @@ script: ./travis-tool.sh run_tests
 after_failure:
 - ./travis-tool.sh dump_logs
 env:
-- NOT_CRAN="true"
-- WARNINGS_ARE_ERRORS=1
+- NOT_CRAN="true" WARNINGS_ARE_ERRORS=1
 notifications:
   email:
     on_success: change
