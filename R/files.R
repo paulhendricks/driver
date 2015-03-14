@@ -153,7 +153,7 @@ update_file_time <- function(token, file_id, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param metadata a blob of metadata retrieved from \code{\link{get_metadata}}, with your modifications
+#'@param metadata a blob of metadata retrieved from \code{\link{file_metadata}}, with your modifications
 #'made to it.
 #'
 #'@param ... further arguments to pass to httr's PATCH.
@@ -260,8 +260,10 @@ download_file <- function(token, metadata, download_type, destination, overwrite
 #'
 #'@param description what to set in the "description" field.
 #'
+#'@param ... further arguments to pass to httr's POST.
+#'
 #'@return a metadata object referring to the uploaded file, which can be used in subsequent requests. Matches the
-#'output format of \code{\link{get_metadata}}
+#'output format of \code{\link{file_metadata}}
 #'
 #'@importFrom httr upload_file
 #'@export

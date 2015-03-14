@@ -14,10 +14,12 @@ upload_file(token, file_path, title = NULL, description = NULL, ...)
 \item{title}{what to set in the "title" field of the resulting Google Drive file}
 
 \item{description}{what to set in the "description" field.}
+
+\item{...}{further arguments to pass to httr's POST.}
 }
 \value{
 a metadata object referring to the uploaded file, which can be used in subsequent requests. Matches the
-output format of \code{\link{get_metadata}}
+output format of \code{\link{file_metadata}}
 }
 \description{
 \code{upload_file} allows you to upload a locally-stored file to Google Drive, setting title and

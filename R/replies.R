@@ -81,3 +81,29 @@ list_replies <- function(token, file_id, comment_id, simplify = FALSE, ...){
   }
   return(results)
 }
+
+#'@title Reply to a comment
+#'
+#'@description replies to a specific comment on a Google Drive file
+#'
+#'@param token a token, generated with \code{\link{driver_connect}}.
+#'
+#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'
+#'@param comment_id the ID of a comment, which can be found in the output of \code{\link{list_comments}}
+#'
+#'@param reply_text a string containing the reply you wish to add
+#'
+#'@param ... further arguments to pass to httr's POST
+#'
+#'@return a basic reply object, similar to those returned from \code{\link{get_reply}}
+#'
+#'@seealso \code{\link{upload_file}} for uploading a file, and \code{\link{add_comment}} for adding
+#'a new comment
+#'
+#'@export
+add_reply <- function(token, file_id, comment_id, reply_text, ...){
+  result <- driver_post(paste0("files/",file_id,"/comments/",comment_id,"/replies"),
+                        token, body = list(content = reply_text), encode = "json", ...)
+  return(result)
+}
