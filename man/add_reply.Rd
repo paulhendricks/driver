@@ -9,7 +9,8 @@ add_reply(token, file_id, comment_id, reply_text, ...)
 \arguments{
 \item{token}{a token, generated with \code{\link{driver_connect}}.}
 
-\item{file_id}{the ID of a file - see \code{\link{file_metadata}} for further discussion.}
+\item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
+See \code{\link{file_metadata}} for further discussion.}
 
 \item{comment_id}{the ID of a comment, which can be found in the output of \code{\link{list_comments}}}
 

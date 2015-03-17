@@ -27,7 +27,8 @@ simplify_response.file_metadata <- function(x){
 #'
 #'@param file_id a file ID, as a string. This can be retrieved from the URL bar when you're accessing
 #'the file: for example, "https://docs.google.com/document/d/1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg"
-#'has the file_id "1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg".
+#'has the file_id "1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg". Alternately, you can pass in
+#'the full URL, and driver will do its best to extract the ID.
 #'
 #'@param simplify whether or not to perform some (small) simplification of the returned
 #'list, to make it less nested, headachey and impossible to read. Set to FALSE by default.
@@ -43,7 +44,7 @@ simplify_response.file_metadata <- function(x){
 #'}
 #'@export
 file_metadata <- function(token, file_id, simplify = FALSE, ...){
-  parameters <- paste0("files/", file_id)
+  parameters <- paste0("files/", detect_full_url(file_id))
   result <- driver_get(parameters, "file_metadata", token, ...)
   if(simplify){
     result <- simplify_response(result)
@@ -57,8 +58,8 @@ file_metadata <- function(token, file_id, simplify = FALSE, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of the file; see \code{\link{file_metadata}} for further
-#'commentary.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param ... further arguments to pass to httr's POST.
 #'
@@ -67,7 +68,7 @@ file_metadata <- function(token, file_id, simplify = FALSE, ...){
 #'
 #'@export
 copy_file <- function(token, file_id, ...){
-  parameters <- paste0("files/", file_id, "/copy")
+  parameters <- paste0("files/", detect_full_url(file_id), "/copy")
   result <- driver_post(parameters, token, ...)
   return(result)
 }
@@ -79,8 +80,8 @@ copy_file <- function(token, file_id, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of the file; see \code{\link{file_metadata}} for further
-#'commentary. 
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param ... further arguments to pass to httr's DELETE.
 #'
@@ -88,7 +89,7 @@ copy_file <- function(token, file_id, ...){
 #'
 #'@export
 delete_file <- function(token, file_id, ...){
-  parameters <- paste0("files/", file_id)
+  parameters <- paste0("files/", detect_full_url(file_id))
   result <- driver_delete(parameters, token)
   return(check_result_status(result))
 }
@@ -132,15 +133,15 @@ list_files <- function(token, max_results = 100, page_token = NULL, simplify = F
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of the file; see \code{\link{file_metadata}} for further
-#'commentary. 
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param ... further arguments to pass to httr's POST.
 #'
 #'@return TRUE if the file was successfully updated, an error otherwise.
 #'@export
 update_file_time <- function(token, file_id, ...){
-  parameters <- paste0("files/", file_id, "/touch")
+  parameters <- paste0("files/", detect_full_url(file_id), "/touch")
   driver_post(parameters, token, ...)
   return(TRUE)
 }
@@ -180,7 +181,7 @@ update_file_metadata <- function(token, metadata, ...){
 #'@return TRUE if the file was successfully trashed, an error otherwise.
 #'@export
 trash_file <- function(token, file_id, ...){
-  parameters <- paste0("files/", file_id, "/trash")
+  parameters <- paste0("files/", detect_full_url(file_id), "/trash")
   driver_post(parameters, token, ...)
   return(TRUE)
 }
@@ -191,15 +192,15 @@ trash_file <- function(token, file_id, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of the file; see \code{\link{file_metadata}} for further
-#'commentary. 
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param ... further arguments to pass to httr's POST.
 #'
 #'@return TRUE if the file was successfully untrashed, an error otherwise.
 #'@export
 untrash_file <- function(token, file_id, ...){
-  parameters <- paste0("files/", file_id, "/untrash")
+  parameters <- paste0("files/", detect_full_url(file_id), "/untrash")
   driver_post(parameters, token, ...)
   return(TRUE)
 }

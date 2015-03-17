@@ -11,7 +11,8 @@ file_metadata(token, file_id, simplify = FALSE, ...)
 
 \item{file_id}{a file ID, as a string. This can be retrieved from the URL bar when you're accessing
 the file: for example, "https://docs.google.com/document/d/1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg"
-has the file_id "1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg".}
+has the file_id "1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg". Alternately, you can pass in
+the full URL, and driver will do its best to extract the ID.}
 
 \item{simplify}{whether or not to perform some (small) simplification of the returned
 list, to make it less nested, headachey and impossible to read. Set to FALSE by default.}

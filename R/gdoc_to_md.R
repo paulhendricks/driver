@@ -7,7 +7,7 @@
 #'@param input_html an HTML file retrieved via 
 #'download_file(..., download_type='text/html')
 #'
-#'@param  output_file a filename for markdown output (optional)
+#'@param output_file a filename for markdown output (optional)
 #'
 #'@param ... options (as a character string) to be passed to pandoc via
 #'\code{\link[rmarkdown]{pandoc_convert}}

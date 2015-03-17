@@ -4,7 +4,8 @@
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param comment_id the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}
 #'
@@ -30,7 +31,8 @@ delete_reply <- function(token, file_id, comment_id, reply_id, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param comment_id the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}
 #'
@@ -60,7 +62,8 @@ get_reply <- function(token, file_id, comment_id, reply_id, simplify = FALSE, ..
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param comment_id the ID of a comment, which can be found in the output of \code{\link{list_comments}}
 #'
@@ -88,7 +91,8 @@ list_replies <- function(token, file_id, comment_id, simplify = FALSE, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param comment_id the ID of a comment, which can be found in the output of \code{\link{list_comments}}
 #'
