@@ -133,7 +133,9 @@ download_revision <- function(token, metadata=NULL, download_type, destination, 
     if(any("POSIXct" %in% class(version_))) {
       rev_list = list_revisions(token, file_id = file_id, ...)
       dates = sapply(rev_list$items, function(x) x$modifiedDate)
-      metadata = rev_list$items[[max(which(dates < version_))]]
+      version_index = suppressWarnings(max(which(dates < version_)))
+      if(version_index == -Inf) stop('File created before date provided')
+      metadata = rev_list$items[[version_index]]
     } else {
       metadata = revision_metadata(token, file_id, version_)
     }
