@@ -103,7 +103,26 @@ delete_revision <- function(token, file_id, rev_id, ...){
 #'
 #'@return TRUE if the file could be downloaded, FALSE or an error otherwise.
 #'@export
-download_revision <- function(token, metadata, download_type, destination, ...){
+download_revision <- function(token, metadata=NULL, file_id=NULL, version = NULL, download_type, destination, ...){
+  
+  if(is.null(metadata) & is.null(file_id)) stop("file_id or metadata must be provided.")
+  
+  if(class(metadata) != "rev_metadata") {
+    if(class(metadata) == "file_metadata") file_id = metadata$id
+    
+    version_ = try(as.POSIXct(version), silent=TRUE)
+    if(class(version) == "try-error") version_ = version
+    
+    if(any("POSIXct" %in% class(version_))) {
+      rev_list = list_revisions(token, file_id = file_id, ...)
+      dates = sapply(rev_list$items, function(x) x$modifiedDate)
+      metadata = rev_list$items[[max(which(dates < version_))]]
+    } else {
+      metadata = revision_metadata(token, file_id, version_)
+    }
+  }
+  
+  
   download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
   result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
                 write_disk(destination), ...)
