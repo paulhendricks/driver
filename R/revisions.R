@@ -94,21 +94,34 @@ delete_revision <- function(token, file_id, rev_id, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param metadata a metadata object retrieved from \code{\link{revision_metadata}} or
-#'\code{\link{list_files}}.
+#'@param metadata a metadata object retrieved from \code{\link{revision_metadata}},
+#'\code{\link{list_files}}, or \code{\link{file_metadata}}. If the latter, \code{version}
+#'must be supplied
+#'
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser. May be provided
+#'in place of \code{metadata}.  If used, \code{version} must be supplied
+#'
+#'@param version The version number of a google doc (found in the "id" of version metadata)
+#'or a date value that can be coerced to POSIXct.  If a date/time is provided, the last version
+#'saved prior to that time is returned.
 #'
 #'@param download_type the format to download the file in. Available formats for a specific file
 #'can be found in the "exportLinks" field of a metadata object.
 #'
 #'@param destination a file path to write the downloaded file to.
 #'
+#'@param overwrite whether to overwrite any existing file at \code{destination}. Set to TRUE
+#'by default.
+#'
 #'@param ... any further arguments to pass to httr's GET.
 #'
 #'@return TRUE if the file could be downloaded, FALSE or an error otherwise.
 #'@export
-download_revision <- function(token, metadata=NULL, file_id=NULL, version = NULL, download_type, destination, ...){
+download_revision <- function(token, metadata=NULL, download_type, destination, file_id=NULL, version = NULL, overwrite=TRUE, ...) {
   
   if(is.null(metadata) & is.null(file_id)) stop("file_id or metadata must be provided.")
+  
+  if(is.null(file_id)) file_id = detect_full_url(file_id)
   
   if(class(metadata) != "rev_metadata") {
     if(class(metadata) == "file_metadata") file_id = metadata$id
@@ -116,6 +129,7 @@ download_revision <- function(token, metadata=NULL, file_id=NULL, version = NULL
     version_ = try(as.POSIXct(version), silent=TRUE)
     if(class(version) == "try-error") version_ = version
     
+    file_id = detect_full_url(file_id)
     if(any("POSIXct" %in% class(version_))) {
       rev_list = list_revisions(token, file_id = file_id, ...)
       dates = sapply(rev_list$items, function(x) x$modifiedDate)
@@ -128,6 +142,6 @@ download_revision <- function(token, metadata=NULL, file_id=NULL, version = NULL
   
   download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
   result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
-                write_disk(destination), ...)
+                write_disk(destination, overwrite), ...)
   return(check_result_status(result))
 }

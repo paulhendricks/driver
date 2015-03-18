@@ -4,19 +4,30 @@
 \alias{download_revision}
 \title{Download a specific revision of a Google Drive file}
 \usage{
-download_revision(token, metadata = NULL, file_id = NULL, version = NULL,
-  download_type, destination, ...)
+download_revision(token, metadata = NULL, download_type, destination,
+  file_id = NULL, version = NULL, overwrite = TRUE, ...)
 }
 \arguments{
 \item{token}{a token, generated with \code{\link{driver_connect}}.}
 
-\item{metadata}{a metadata object retrieved from \code{\link{revision_metadata}} or
-\code{\link{list_files}}.}
+\item{metadata}{a metadata object retrieved from \code{\link{revision_metadata}},
+\code{\link{list_files}}, or \code{\link{file_metadata}}. If the latter, \code{version}
+must be supplied}
 
 \item{download_type}{the format to download the file in. Available formats for a specific file
 can be found in the "exportLinks" field of a metadata object.}
 
 \item{destination}{a file path to write the downloaded file to.}
+
+\item{file_id}{the ID of a file - or the full URL for accessing it via your browser. May be provided
+in place of \code{metadata}.  If used, \code{version} must be supplied}
+
+\item{version}{The version number of a google doc (found in the "id" of version metadata)
+or a date value that can be coerced to POSIXct.  If a date/time is provided, the last version
+saved prior to that time is returned.}
+
+\item{overwrite}{whether to overwrite any existing file at \code{destination}. Set to TRUE
+by default.}
 
 \item{...}{any further arguments to pass to httr's GET.}
 }
