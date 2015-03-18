@@ -1,4 +1,4 @@
-language: c
+language: r
 before_install:
 - openssl aes-256-cbc -K $encrypted_5e6beae96b20_key -iv $encrypted_5e6beae96b20_iv
   -in tests/testthat/token_file.rds.enc -out tests/testthat/token_file.rds -d

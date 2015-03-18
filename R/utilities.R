@@ -15,6 +15,15 @@ check_result_status <- function(result){
   }
 }
 
+#Detects if the "Id" is actually a full Google Drive URL and handles it accordingly
+#'@importFrom stringi stri_extract_first
+detect_full_url <- function(id){
+  if(grepl(x = id, pattern = ".*\\.google.com/")){
+    id <- stri_extract_first(id, regex = "(?<=/d/).*?(?=/)")
+  }
+  return(id)
+}
+
 #'@title connect to Google Drive and authorise driver to access your files.
 #'@description \code{driver_connect} produces an OAuth 2.0 token which can be passed
 #'into other functions in the driver package, enabling driver to access your Google Drive
@@ -44,7 +53,7 @@ check_result_status <- function(result){
 driver_connect <- function(id, secret){
   app <- oauth_app("driver", id, secret)
   token <- oauth2.0_token(oauth_endpoints("google"), app = app,
-                          scope = "https://www.googleapis.com/auth/drive", cache = FALSE)
+                            scope = "https://www.googleapis.com/auth/drive", cache = FALSE)
   return(token)
 }
 

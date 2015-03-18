@@ -9,8 +9,8 @@ untrash_file(token, file_id, ...)
 \arguments{
 \item{token}{a token, generated with \code{\link{driver_connect}}.}
 
-\item{file_id}{the ID of the file; see \code{\link{file_metadata}} for further
-commentary.}
+\item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
+See \code{\link{file_metadata}} for further discussion.}
 
 \item{...}{further arguments to pass to httr's POST.}
 }

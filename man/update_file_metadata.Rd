@@ -9,7 +9,7 @@ update_file_metadata(token, metadata, ...)
 \arguments{
 \item{token}{a token, generated with \code{\link{driver_connect}}.}
 
-\item{metadata}{a blob of metadata retrieved from \code{\link{get_metadata}}, with your modifications
+\item{metadata}{a blob of metadata retrieved from \code{\link{file_metadata}}, with your modifications
 made to it.}
 
 \item{...}{further arguments to pass to httr's PATCH.}

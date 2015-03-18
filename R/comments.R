@@ -28,7 +28,8 @@ simplify_response.comment_list <- function(x){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param comment_id the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}
 #'
@@ -47,7 +48,7 @@ simplify_response.comment_list <- function(x){
 #'}
 #'@export
 delete_comment <- function(token, file_id, comment_id, ...){
-  parameters <- paste0("files/", file_id, "/comments/", comment_id)
+  parameters <- paste0("files/", detect_full_url(file_id), "/comments/", comment_id)
   results <- driver_delete(parameters, token, ...)
   return(check_result_status(results))
 }
@@ -58,7 +59,8 @@ delete_comment <- function(token, file_id, comment_id, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param comment_id the ID of a comment, which can be easily retrieved with \code{\link{list_comments}}
 #'
@@ -71,7 +73,7 @@ delete_comment <- function(token, file_id, comment_id, ...){
 #'IDs) for an entire file.
 #'@export
 get_comment <- function(token, file_id, comment_id, simplify = FALSE, ...){
-  parameters <- paste0("files/", file_id, "/comments/", comment_id)
+  parameters <- paste0("files/", detect_full_url(file_id), "/comments/", comment_id)
   results <- driver_get(parameters, "comment", token, ...)
   if(simplify){
     results <- simplify_response(results)
@@ -85,7 +87,8 @@ get_comment <- function(token, file_id, comment_id, simplify = FALSE, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param simplify whether or not to perform some (small) simplification of the returned
 #'list, to make it less nested, headachey and impossible to read. Set to FALSE by default.
@@ -96,7 +99,7 @@ get_comment <- function(token, file_id, comment_id, simplify = FALSE, ...){
 #'IDs) for an entire file.
 #'@export
 list_comments <- function(token, file_id, simplify = FALSE, ...){
-  parameters <- paste0("files/", file_id, "/comments")
+  parameters <- paste0("files/", detect_full_url(file_id), "/comments")
   results <- driver_get(parameters, "comment_list", token, ...)
   if(simplify){
     results <- simplify_response(results)
@@ -112,7 +115,8 @@ list_comments <- function(token, file_id, simplify = FALSE, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param comment_text a string containing the comment you wish to leave
 #'

@@ -25,7 +25,8 @@ simplify_response.rev_list <- function(x){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param simplify whether or not to perform some (small) simplification of the returned
 #'list, to make it less nested, headachey and impossible to read. Set to FALSE by default.
@@ -33,7 +34,7 @@ simplify_response.rev_list <- function(x){
 #'@param ... further arguments to pass to httr's GET.
 #'@export
 list_revisions <- function(token, file_id, simplify = FALSE, ...){
-  parameters <- paste0("files/", file_id, "/revisions")
+  parameters <- paste0("files/", detect_full_url(file_id), "/revisions")
   results <- driver_get(parameters, "rev_list", token, ...)
   if(simplify){
     results <- simplify_response(results)
@@ -47,7 +48,8 @@ list_revisions <- function(token, file_id, simplify = FALSE, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param rev_id the ID of a revision of that file.
 #'
@@ -58,7 +60,7 @@ list_revisions <- function(token, file_id, simplify = FALSE, ...){
 #'
 #'@export
 revision_metadata <- function(token, file_id, rev_id, simplify = FALSE, ...){
-  parameters <- paste0("files/", file_id, "/revisions/", rev_id)
+  parameters <- paste0("files/", detect_full_url(file_id), "/revisions/", rev_id)
   result <- driver_get(parameters, "rev_metadata", token, ...)
   if(simplify){
     result <- simplify_response(result)
@@ -72,7 +74,8 @@ revision_metadata <- function(token, file_id, rev_id, simplify = FALSE, ...){
 #'
 #'@param token a token, generated with \code{\link{driver_connect}}.
 #'
-#'@param file_id the ID of a file - see \code{\link{file_metadata}} for further discussion.
+#'@param file_id the ID of a file - or the full URL for accessing it via your browser.
+#'See \code{\link{file_metadata}} for further discussion.
 #'
 #'@param rev_id the ID of a revision of that file.
 #'
@@ -80,7 +83,7 @@ revision_metadata <- function(token, file_id, rev_id, simplify = FALSE, ...){
 #'
 #'@export
 delete_revision <- function(token, file_id, rev_id, ...){
-  parameters <- paste0("files/", file_id, "/revisions/", rev_id)
+  parameters <- paste0("files/", detect_full_url(file_id), "/revisions/", rev_id)
   result <- driver_delete(parameters, token, ...)
   return(check_result_status(result))
 }
