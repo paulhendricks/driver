@@ -244,7 +244,7 @@ empty_trash <- function(token, ...){
 download_file <- function(token, metadata, download_type, destination, overwrite = TRUE, ...){
   download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
   result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
-                write_disk(destination), ...)
+                write_disk(destination, overwrite), ...)
   return(check_result_status(result))
 }
 
