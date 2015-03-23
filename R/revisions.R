@@ -131,13 +131,18 @@ download_revision <- function(token, metadata=NULL, download_type, destination, 
     if(class(metadata) == "file_metadata") file_id <- metadata$id
     
     version_ <- try(as.POSIXct(version), silent=TRUE)
-    if(class(version) == "try-error") version_ <- version
+    if("try-error" %in% class(version_)) {
+      version_ <- version
+    } else {
+      attributes(version_)$tzone <- "UTC"
+    }
     
     file_id <- detect_full_url(file_id)
     if(any("POSIXct" %in% class(version_))) {
       rev_list <- list_revisions(token, file_id = file_id, ...)
       dates <- sapply(rev_list$items, function(x) x$modifiedDate)
-      version_index <- suppressWarnings(max(which(dates < version_)))
+      dates <- as.POSIXct(dates, format = "%Y-%m-%dT%H:%M:%OSZ", tz="UTC")
+      version_index <- suppressWarnings(max(which(dates <= version_)))
       if(version_index == -Inf) stop('File created before date provided')
       metadata <- rev_list$items[[version_index]]
     } else {
@@ -147,6 +152,10 @@ download_revision <- function(token, metadata=NULL, download_type, destination, 
   
   
   download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
+  if (is.null(download_url)) {
+    download_url <- metadata$selfLink
+  }
+  
   result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
                 write_disk(destination, overwrite), ...)
   return(check_result_status(result))
