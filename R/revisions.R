@@ -119,25 +119,29 @@ delete_revision <- function(token, file_id, rev_id, ...){
 #'@export
 download_revision <- function(token, metadata=NULL, download_type, destination, file_id=NULL, version = NULL, overwrite=TRUE, ...) {
   
-  if(is.null(metadata) & is.null(file_id)) stop("file_id or metadata must be provided.")
+  if(is.null(metadata) & is.null(file_id)) {
+    stop("file_id or metadata must be provided.")
+  }
   
-  if(is.null(file_id)) file_id = detect_full_url(file_id)
+  if(is.null(file_id)) {
+    file_id = detect_full_url(file_id)
+  }
   
   if(class(metadata) != "rev_metadata") {
-    if(class(metadata) == "file_metadata") file_id = metadata$id
+    if(class(metadata) == "file_metadata") file_id <- metadata$id
     
-    version_ = try(as.POSIXct(version), silent=TRUE)
-    if(class(version) == "try-error") version_ = version
+    version_ <- try(as.POSIXct(version), silent=TRUE)
+    if(class(version) == "try-error") version_ <- version
     
-    file_id = detect_full_url(file_id)
+    file_id <- detect_full_url(file_id)
     if(any("POSIXct" %in% class(version_))) {
-      rev_list = list_revisions(token, file_id = file_id, ...)
-      dates = sapply(rev_list$items, function(x) x$modifiedDate)
-      version_index = suppressWarnings(max(which(dates < version_)))
+      rev_list <- list_revisions(token, file_id = file_id, ...)
+      dates <- sapply(rev_list$items, function(x) x$modifiedDate)
+      version_index <- suppressWarnings(max(which(dates < version_)))
       if(version_index == -Inf) stop('File created before date provided')
-      metadata = rev_list$items[[version_index]]
+      metadata <- rev_list$items[[version_index]]
     } else {
-      metadata = revision_metadata(token, file_id, version_)
+      metadata <- revision_metadata(token, file_id, version_)
     }
   }
   
