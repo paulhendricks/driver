@@ -78,12 +78,12 @@ test_that("File uploading works",{
 
 test_that("File revision downloading works",{
   file <- list_files(token, max_results = 1)$items[[1]]$id
-  file_meta = file_metadata(token, file)
-  format = names(file_meta$exportLinks)[1]
+  file_meta <- file_metadata(token, file)
+  format <- names(file_meta$exportLinks)[1]
   revs <- list_revisions(token, file)
   last_rev <- revs$items[[length(revs$items)]]
-  tmp1 = tempfile()
-  tmp2 = tempfile()
+  tmp1 <- tempfile()
+  tmp2 <- tempfile()
   download_revision(token, file_id = file, download_type = format, version = last_rev$id, destination = tmp1)
   download_revision(token, file_id = file, download_type = format, version = Sys.time(), destination = tmp2)
   expect_equal(readLines(tmp1, warn = FALSE), readLines(tmp2, warn = FALSE))
