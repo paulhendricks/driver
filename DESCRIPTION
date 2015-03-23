@@ -3,8 +3,9 @@ Type: Package
 Title: Google Drive API client library
 Version: 0.0.1
 Date: 2015-02-13
-Author: Oliver Keyes
-Maintainer: Oliver Keyes <okeyes@wikimedia.org>
+Authors@R: c(person("Oliver", "Keyes", email = "ironholds@gmail.com",
+  role = c("aut", "cre")), person("Noam", "Ross", role = "ctb"))
+Maintainer: Oliver Keyes <ironholds@gmail.com>
 Description: A client library for the Google Drive API; download and upload files,
   post comments, retrieve metadata and manipulate permissions.
 License: MIT + file LICENSE
