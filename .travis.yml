@@ -1,7 +1,6 @@
 language: r
 before_install:
-- openssl aes-256-cbc -K $encrypted_5e6beae96b20_key -iv $encrypted_5e6beae96b20_iv
-  -in tests/testthat/token_file.rds.enc -out tests/testthat/token_file.rds -d
+- openssl aes-256-cbc -K $encrypted_4729e59e5883_key -iv $encrypted_4729e59e5883_iv -in tests/testthat/token_file.rds.enc -out tests/testthat/token_file.rds -d
 - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
 - chmod 755 ./travis-tool.sh
 - ./travis-tool.sh bootstrap

@@ -3,3 +3,4 @@
 .RData
 .httr-oauth
 tests/testthat/token_file.rds
+token_file.rds
