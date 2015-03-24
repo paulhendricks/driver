@@ -4,11 +4,9 @@
 \alias{delete_comment}
 \title{delete a comment on a Google Drive file}
 \usage{
-delete_comment(token, file_id, comment_id, ...)
+delete_comment(file_id, comment_id, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 
@@ -27,8 +25,8 @@ and a comment ID, will let you delete a comment automatically. It's worth noting
 \examples{
 \dontrun{
 #Grab a list of comments in a file and delete the first one
-comments <- list_comments(token = token, file_id = "f38rggruFKJad30")
-delete_comment(token, "f38rggruFKJad30", comments$items[[1]]$id)
+comments <- list_comments(file_id = "f38rggruFKJad30")
+delete_comment("f38rggruFKJad30", comments$items[[1]]$id)
 }
 }
 \seealso{

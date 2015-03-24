@@ -4,11 +4,9 @@
 \alias{get_reply}
 \title{get a reply's metadata and text}
 \usage{
-get_reply(token, file_id, comment_id, reply_id, simplify = FALSE, ...)
+get_reply(file_id, comment_id, reply_id, simplify = FALSE, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 

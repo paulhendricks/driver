@@ -4,12 +4,10 @@
 \alias{empty_trash}
 \title{Empties the trash}
 \usage{
-empty_trash(token, ...)
+empty_trash(...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
-\item{...}{further arguments to pass to httr's DELETE.}
+\item{...arguments}{to pass to httr's DELETE.}
 }
 \value{
 TRUE if the trash was successfully emptied, FALSE otherwise.

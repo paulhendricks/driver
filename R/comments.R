@@ -26,8 +26,6 @@ simplify_response.comment_list <- function(x){
 #'and a comment ID, will let you delete a comment automatically. It's worth noting that this will
 #'/also/ junk any replies to the initial comment.
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
 #'
@@ -43,21 +41,19 @@ simplify_response.comment_list <- function(x){
 #'@examples
 #'\dontrun{
 #'#Grab a list of comments in a file and delete the first one
-#'comments <- list_comments(token = token, file_id = "f38rggruFKJad30")
-#'delete_comment(token, "f38rggruFKJad30", comments$items[[1]]$id)
+#'comments <- list_comments(file_id = "f38rggruFKJad30")
+#'delete_comment("f38rggruFKJad30", comments$items[[1]]$id)
 #'}
 #'@export
-delete_comment <- function(token, file_id, comment_id, ...){
+delete_comment <- function(file_id, comment_id, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/comments/", comment_id)
-  results <- driver_delete(parameters, token, ...)
+  results <- driver_delete(parameters, ...)
   return(check_result_status(results))
 }
 
 #'@title retrieve a comment's metadata and content
 #'@description grabs the metadata and content (both as HTML and plaintext) of a specified
 #'comment to a Google Drive file.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
@@ -72,9 +68,9 @@ delete_comment <- function(token, file_id, comment_id, ...){
 #'@seealso \code{\link{list_comments}} to retrieve comment metadata (including the comment
 #'IDs) for an entire file.
 #'@export
-get_comment <- function(token, file_id, comment_id, simplify = FALSE, ...){
+get_comment <- function(file_id, comment_id, simplify = FALSE, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/comments/", comment_id)
-  results <- driver_get(parameters, "comment", token, ...)
+  results <- driver_get(parameters, "comment", ...)
   if(simplify){
     results <- simplify_response(results)
   }
@@ -84,8 +80,6 @@ get_comment <- function(token, file_id, comment_id, simplify = FALSE, ...){
 #'@title retrieve the metadata and content of all comments to a file
 #'@description grabs the metadata and content (both as HTML and plaintext) of each comment
 #'in a specified Google Drive file.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
@@ -98,9 +92,9 @@ get_comment <- function(token, file_id, comment_id, simplify = FALSE, ...){
 #'@seealso \code{\link{list_comments}} to retrieve comment metadata (including the comment
 #'IDs) for an entire file.
 #'@export
-list_comments <- function(token, file_id, simplify = FALSE, ...){
+list_comments <- function(file_id, simplify = FALSE, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/comments")
-  results <- driver_get(parameters, "comment_list", token, ...)
+  results <- driver_get(parameters, "comment_list", ...)
   if(simplify){
     results <- simplify_response(results)
   }
@@ -112,8 +106,6 @@ list_comments <- function(token, file_id, simplify = FALSE, ...){
 #'@description add a comment to a Google Drive file. These comments are not (currently) anchored,
 #'meaning that they're associated with the file as a whole rather than tied to any particular element
 #'or line of text.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
@@ -134,7 +126,7 @@ list_comments <- function(token, file_id, simplify = FALSE, ...){
 #'                                about this proposal but no actual idea for how to improve it")
 #'}
 #'@export
-add_comment <- function(token, file_id, comment_text, ...){
-  result <- driver_post(paste0("files/",file_id,"/comments"), token, body = list(content = comment_text), encode = "json", ...)
+add_comment <- function(file_id, comment_text, ...){
+  result <- driver_post(paste0("files/",file_id,"/comments"), body = list(content = comment_text), encode = "json", ...)
   return(result)
 }

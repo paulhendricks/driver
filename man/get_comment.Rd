@@ -4,11 +4,9 @@
 \alias{get_comment}
 \title{retrieve a comment's metadata and content}
 \usage{
-get_comment(token, file_id, comment_id, simplify = FALSE, ...)
+get_comment(file_id, comment_id, simplify = FALSE, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 

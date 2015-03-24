@@ -4,11 +4,9 @@
 \alias{file_metadata}
 \title{Retrieve the metadata for a specific file.}
 \usage{
-file_metadata(token, file_id, simplify = FALSE, ...)
+file_metadata(file_id, simplify = FALSE, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{a file ID, as a string. This can be retrieved from the URL bar when you're accessing
 the file: for example, "https://docs.google.com/document/d/1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg"
 has the file_id "1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg". Alternately, you can pass in
@@ -21,12 +19,12 @@ list, to make it less nested, headachey and impossible to read. Set to FALSE by 
 }
 \description{
 \code{file_metadata} retrieves the metadata for a specific file the user
-has access to. To retrieve the metadata for all files, see \code{\link{list_files}}
+has access to. To retrieve the metadata for all files, see \code{\link{list_files}}.
 }
 \examples{
 \dontrun{
 #Once we've authenticated and grabbed a token, we can grab the metadata for the example file:
-example_metadata <- file_metadata(token, "1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg")
+example_metadata <- file_metadata("1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg")
 }
 }
 \seealso{

@@ -4,12 +4,9 @@
 \alias{download_file}
 \title{Download a Google Drive file}
 \usage{
-download_file(token, metadata, download_type, destination, overwrite = TRUE,
-  ...)
+download_file(metadata, download_type, destination, overwrite = TRUE, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{metadata}{a metadata object retrieved from \code{\link{file_metadata}} or
 \code{\link{list_files}}.}
 
@@ -24,7 +21,7 @@ by default.}
 \item{...}{any further arguments to pass to httr's GET.}
 }
 \value{
-TRUE if the file could be downloaded, FALSE or an error otherwise.
+TRUE if the file could be downloaded, an error otherwise.
 }
 \description{
 download a Google Drive file in a specified format and save it to disk.

@@ -4,14 +4,12 @@
 \alias{driver_get}
 \title{send a GET request to the Google Drive API}
 \usage{
-driver_get(parameters, out_class, token, ...)
+driver_get(parameters, out_class, ...)
 }
 \arguments{
 \item{parameters}{a constructed query string passed from one of the exported functions.}
 
 \item{out_class}{a classname to set, used to distinguish between simplifier methods}
-
-\item{token}{a token retrieved with \code{\link{driver_connect}}}
 
 \item{...}{further arguments to httr's GET function.}
 }

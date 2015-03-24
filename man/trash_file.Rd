@@ -4,11 +4,9 @@
 \alias{trash_file}
 \title{move a file to the trash}
 \usage{
-trash_file(token, file_id, ...)
+trash_file(file_id, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of the file; see \code{\link{file_metadata}} for further
 commentary.}
 

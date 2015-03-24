@@ -4,12 +4,9 @@
 \alias{list_files}
 \title{Retrieve the metadata for all files}
 \usage{
-list_files(token, max_results = 100, page_token = NULL, simplify = FALSE,
-  ...)
+list_files(max_results = 100, page_token = NULL, simplify = FALSE, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{max_results}{the maximum number of results to return; any number between 1 and 1000.
 Set to 100 by default.}
 
@@ -21,6 +18,8 @@ Plugging this into the \code{page_token} parameter provides for query continuati
 list, to make it less nested, headachey and impossible to read. Set to FALSE by default.}
 
 \item{...}{further arguments to pass to httr's GET.}
+
+\item{token}{a token, generated with \code{\link{driver_connect}}.}
 }
 \description{
 \code{list_files} allows an authenticated user to retrieve the metadata

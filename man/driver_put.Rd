@@ -4,12 +4,10 @@
 \alias{driver_put}
 \title{send a PUT request to the Google Drive API}
 \usage{
-driver_put(parameters, token, ...)
+driver_put(parameters, ...)
 }
 \arguments{
 \item{parameters}{a constructed query string passed from one of the exported functions.}
-
-\item{token}{a token retrieved with \code{\link{driver_connect}}}
 
 \item{...}{further arguments to httr's PUT function.}
 }

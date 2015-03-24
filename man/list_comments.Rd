@@ -4,11 +4,9 @@
 \alias{list_comments}
 \title{retrieve the metadata and content of all comments to a file}
 \usage{
-list_comments(token, file_id, simplify = FALSE, ...)
+list_comments(file_id, simplify = FALSE, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 

@@ -4,11 +4,9 @@
 \alias{untrash_file}
 \title{move a file out of the trash}
 \usage{
-untrash_file(token, file_id, ...)
+untrash_file(file_id, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 

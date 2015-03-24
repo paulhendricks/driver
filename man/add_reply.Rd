@@ -4,11 +4,9 @@
 \alias{add_reply}
 \title{Reply to a comment}
 \usage{
-add_reply(token, file_id, comment_id, reply_text, ...)
+add_reply(file_id, comment_id, reply_text, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 

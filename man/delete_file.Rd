@@ -4,15 +4,15 @@
 \alias{delete_file}
 \title{delete a Google Drive file}
 \usage{
-delete_file(token, file_id, ...)
+delete_file(file_id, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 
 \item{...}{further arguments to pass to httr's DELETE.}
+
+\item{token}{a token, generated with \code{\link{driver_connect}}.}
 }
 \value{
 TRUE if the file was successfully deleted, FALSE or an error otherwise.

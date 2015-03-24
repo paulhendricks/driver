@@ -4,11 +4,9 @@
 \alias{update_file_time}
 \title{update the time a file was viewed}
 \usage{
-update_file_time(token, file_id, ...)
+update_file_time(file_id, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 

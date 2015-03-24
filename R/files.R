@@ -21,9 +21,7 @@ simplify_response.file_metadata <- function(x){
 #'@title Retrieve the metadata for a specific file.
 #'
 #'@description \code{file_metadata} retrieves the metadata for a specific file the user
-#'has access to. To retrieve the metadata for all files, see \code{\link{list_files}}
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
+#'has access to. To retrieve the metadata for all files, see \code{\link{list_files}}.
 #'
 #'@param file_id a file ID, as a string. This can be retrieved from the URL bar when you're accessing
 #'the file: for example, "https://docs.google.com/document/d/1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg"
@@ -40,12 +38,12 @@ simplify_response.file_metadata <- function(x){
 #'@examples
 #'\dontrun{
 #'#Once we've authenticated and grabbed a token, we can grab the metadata for the example file:
-#'example_metadata <- file_metadata(token, "1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg")
+#'example_metadata <- file_metadata("1gOxog56F2bCnxwum7VhmN3JqTX7usTYcK5X3V4QDnxg")
 #'}
 #'@export
-file_metadata <- function(token, file_id, simplify = FALSE, ...){
+file_metadata <- function(file_id, simplify = FALSE, ...){
   parameters <- paste0("files/", detect_full_url(file_id))
-  result <- driver_get(parameters, "file_metadata", token, ...)
+  result <- driver_get(parameters, "file_metadata", ...)
   if(simplify){
     result <- simplify_response(result)
   }
@@ -56,8 +54,6 @@ file_metadata <- function(token, file_id, simplify = FALSE, ...){
 #'@description takes a Google Drive file and creates a copy of it, with the same
 #'access restrictions.
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
 #'
@@ -67,9 +63,9 @@ file_metadata <- function(token, file_id, simplify = FALSE, ...){
 #'the output of \code{\link{file_metadata}}.
 #'
 #'@export
-copy_file <- function(token, file_id, ...){
+copy_file <- function(file_id, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/copy")
-  result <- driver_post(parameters, token, ...)
+  result <- driver_post(parameters, ...)
   return(result)
 }
 
@@ -88,9 +84,9 @@ copy_file <- function(token, file_id, ...){
 #'@return TRUE if the file was successfully deleted, FALSE or an error otherwise.
 #'
 #'@export
-delete_file <- function(token, file_id, ...){
+delete_file <- function(file_id, ...){
   parameters <- paste0("files/", detect_full_url(file_id))
-  result <- driver_delete(parameters, token)
+  result <- driver_delete(parameters)
   return(check_result_status(result))
 }
 
@@ -115,12 +111,12 @@ delete_file <- function(token, file_id, ...){
 #'@param ... further arguments to pass to httr's GET.
 #'
 #'@export
-list_files <- function(token, max_results = 100, page_token = NULL, simplify = FALSE, ...){
+list_files <- function(max_results = 100, page_token = NULL, simplify = FALSE, ...){
   parameters <- paste0("files?", "maxResults=", max_results)
   if(!is.null(page_token)){
     parameters <- paste0(parameters, "&pageToken=", page_token)
   }
-  result <- driver_get(parameters, "file_list", token, ...)
+  result <- driver_get(parameters, "file_list", ...)
   if(simplify){
     result <- simplify_response(result)
   }
@@ -131,8 +127,6 @@ list_files <- function(token, max_results = 100, page_token = NULL, simplify = F
 #'@description \code{\link{update_file_time}} updates the metadata associated with a specific
 #'file to state that the file was last viewed/modified at [system time].
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
 #'
@@ -140,9 +134,9 @@ list_files <- function(token, max_results = 100, page_token = NULL, simplify = F
 #'
 #'@return TRUE if the file was successfully updated, an error otherwise.
 #'@export
-update_file_time <- function(token, file_id, ...){
+update_file_time <- function(file_id, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/touch")
-  driver_post(parameters, token, ...)
+  driver_post(parameters, ...)
   return(TRUE)
 }
 
@@ -152,8 +146,6 @@ update_file_time <- function(token, file_id, ...){
 #'with a file on Google Drive - for example, changing the title or description, or modifying
 #'the permissions.
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
 #'@param metadata a blob of metadata retrieved from \code{\link{file_metadata}}, with your modifications
 #'made to it.
 #'
@@ -162,16 +154,14 @@ update_file_time <- function(token, file_id, ...){
 #'@return the new metadata associated with the file, allowing you to confirm the changes took effect.
 #'
 #'@export
-update_file_metadata <- function(token, metadata, ...){
-  patch_result <- driver_put(paste0("files/",metadata$id), token, body = metadata, encode = "json")
+update_file_metadata <- function(metadata, ...){
+  patch_result <- driver_put(paste0("files/",metadata$id), body = metadata, encode = "json")
   return(patch_result)
 }
 
 #'@title move a file to the trash
 #'@description moves a file to Google Drive's "trash" folder, which is automatically
 #'emptied after a set number of days.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_id the ID of the file; see \code{\link{file_metadata}} for further
 #'commentary. 
@@ -180,17 +170,15 @@ update_file_metadata <- function(token, metadata, ...){
 #'
 #'@return TRUE if the file was successfully trashed, an error otherwise.
 #'@export
-trash_file <- function(token, file_id, ...){
+trash_file <- function(file_id, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/trash")
-  driver_post(parameters, token, ...)
+  driver_post(parameters, ...)
   return(TRUE)
 }
 
 #'@title move a file out of the trash
 #'@description moves a file in Google Drive's "trash" folder, which is automatically
 #'emptied after a set number of days, out and back into the user's Drive.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
@@ -199,31 +187,27 @@ trash_file <- function(token, file_id, ...){
 #'
 #'@return TRUE if the file was successfully untrashed, an error otherwise.
 #'@export
-untrash_file <- function(token, file_id, ...){
+untrash_file <- function(file_id, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/untrash")
-  driver_post(parameters, token, ...)
+  driver_post(parameters, ...)
   return(TRUE)
 }
 
 #'@title Empties the trash
 #'@description empties the user's Google Drive "trash" folder.
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
-#'@param ... further arguments to pass to httr's DELETE.
+#'@param ...arguments to pass to httr's DELETE.
 #'
 #'@return TRUE if the trash was successfully emptied, FALSE otherwise.
 #'@export
-empty_trash <- function(token, ...){
+empty_trash <- function(...){
   parameters <- "files/trash"
-  result <- driver_delete(parameters, token, ...)
+  result <- driver_delete(parameters, ...)
   return(check_result_status(result))
 }
 
 #'@title Download a Google Drive file
 #'@description download a Google Drive file in a specified format and save it to disk.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param metadata a metadata object retrieved from \code{\link{file_metadata}} or
 #'\code{\link{list_files}}.
@@ -238,22 +222,19 @@ empty_trash <- function(token, ...){
 #'
 #'@param ... any further arguments to pass to httr's GET.
 #'
-#'@return TRUE if the file could be downloaded, FALSE or an error otherwise.
+#'@return TRUE if the file could be downloaded, an error otherwise.
 #'@importFrom httr write_disk
 #'@export
-download_file <- function(token, metadata, download_type, destination, overwrite = TRUE, ...){
+download_file <- function(metadata, download_type, destination, overwrite = TRUE, ...){
   download_url <- unlist(unname(metadata$exportLinks[names(metadata$exportLinks) == download_type]))
-  result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
-                write_disk(destination, overwrite), ...)
-  return(check_result_status(result))
+  driver_get(download_url, out_class = NULL, write_disk(destination, overwrite), ...)
+  return(TRUE)
 }
 
 #'@title Upload a local file to Google Drive
 #'
 #'@description \code{upload_file} allows you to upload a locally-stored file to Google Drive, setting title and
 #'description along the way if you so choose.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_path the full path to the file you want to upload
 #'
@@ -268,9 +249,9 @@ download_file <- function(token, metadata, download_type, destination, overwrite
 #'
 #'@importFrom httr upload_file
 #'@export
-upload_file <- function(token, file_path, title = NULL, description = NULL, ...){
+upload_file <- function(file_path, title = NULL, description = NULL, ...){
   post_result <- driver_post(parameters = "https://www.googleapis.com/upload/drive/v2/files?uploadType=media", 
-                             token = token, body = httr::upload_file(file_path), ...)
+                             body = httr::upload_file(file_path), ...)
   if(all(is.null(title), is.null(description))){
     return(post_result)
   }
@@ -280,6 +261,6 @@ upload_file <- function(token, file_path, title = NULL, description = NULL, ...)
   if(is.null(description)){
     post_result$description <- description
   }
-  patch_result <- driver_put(paste0("files/",post_result$id), token, body = post_result, encode = "json")
+  patch_result <- driver_put(paste0("files/",post_result$id), body = post_result, encode = "json")
   return(patch_result)
 }

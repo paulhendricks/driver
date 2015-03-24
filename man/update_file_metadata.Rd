@@ -4,11 +4,9 @@
 \alias{update_file_metadata}
 \title{update the metadata associated with a Google Drive file}
 \usage{
-update_file_metadata(token, metadata, ...)
+update_file_metadata(metadata, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{metadata}{a blob of metadata retrieved from \code{\link{file_metadata}}, with your modifications
 made to it.}
 

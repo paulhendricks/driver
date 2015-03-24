@@ -4,11 +4,9 @@
 \alias{delete_reply}
 \title{delete a reply}
 \usage{
-delete_reply(token, file_id, comment_id, reply_id, ...)
+delete_reply(file_id, comment_id, reply_id, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 

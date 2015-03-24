@@ -4,12 +4,10 @@
 \alias{driver_post}
 \title{send a POST request to the Google Drive API}
 \usage{
-driver_post(parameters, token, ...)
+driver_post(parameters, ...)
 }
 \arguments{
 \item{parameters}{a constructed query string passed from one of the exported functions.}
-
-\item{token}{a token retrieved with \code{\link{driver_connect}}}
 
 \item{...}{further arguments to httr's POST function.}
 }

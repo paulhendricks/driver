@@ -2,8 +2,6 @@
 #'@description when provided with the relevant file, comment and reply IDs, \code{\link{delete_reply}}
 #'allows you to trash a reply. Note that this is irrevocable.
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
 #'
@@ -18,9 +16,9 @@
 #'ID) from a specific reply or all replies to a comment, respectively.
 #'
 #'@export
-delete_reply <- function(token, file_id, comment_id, reply_id, ...){
+delete_reply <- function(file_id, comment_id, reply_id, ...){
   parameters <- paste0("files/", file_id, "/comments/", comment_id, "/replies/", reply_id)
-  results <- driver_delete(parameters, token, ...)
+  results <- driver_delete(parameters, ...)
   return(check_result_status(results))
 }
 
@@ -28,8 +26,6 @@ delete_reply <- function(token, file_id, comment_id, reply_id, ...){
 #'
 #'@description retrieve the metadata and text for a specific reply to a comment in a
 #'Google Drive file.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
@@ -47,9 +43,9 @@ delete_reply <- function(token, file_id, comment_id, reply_id, ...){
 #'for retrieving all replies associated with a comment
 #'
 #'@export
-get_reply <- function(token, file_id, comment_id, reply_id, simplify = FALSE, ...){
+get_reply <- function(file_id, comment_id, reply_id, simplify = FALSE, ...){
   parameters <- paste0("files/", file_id, "/comments/", comment_id, "/replies/", reply_id)
-  results <- driver_get(parameters, "reply", token, ...)
+  results <- driver_get(parameters, "reply", ...)
   if(simplify){
     results <- simplify_response(results)
   }
@@ -59,8 +55,6 @@ get_reply <- function(token, file_id, comment_id, reply_id, simplify = FALSE, ..
 #'@title Get all replies to a comment
 #'@description retrieves the metadata and text of all replies to a comment in a
 #'Google Drive file.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
@@ -76,9 +70,9 @@ get_reply <- function(token, file_id, comment_id, reply_id, simplify = FALSE, ..
 #'for retrieving a specific reply.
 #'
 #'@export
-list_replies <- function(token, file_id, comment_id, simplify = FALSE, ...){
+list_replies <- function(file_id, comment_id, simplify = FALSE, ...){
   parameters <- paste0("files/", file_id, "/comments/", comment_id)
-  results <- driver_get(parameters, "reply_list", token, ...)
+  results <- driver_get(parameters, "reply_list", ...)
   if(simplify){
     results <- simplify_response(results)
   }
@@ -88,8 +82,6 @@ list_replies <- function(token, file_id, comment_id, simplify = FALSE, ...){
 #'@title Reply to a comment
 #'
 #'@description replies to a specific comment on a Google Drive file
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
@@ -106,8 +98,8 @@ list_replies <- function(token, file_id, comment_id, simplify = FALSE, ...){
 #'a new comment
 #'
 #'@export
-add_reply <- function(token, file_id, comment_id, reply_text, ...){
+add_reply <- function(file_id, comment_id, reply_text, ...){
   result <- driver_post(paste0("files/",file_id,"/comments/",comment_id,"/replies"),
-                        token, body = list(content = reply_text), encode = "json", ...)
+                        body = list(content = reply_text), encode = "json", ...)
   return(result)
 }

@@ -4,11 +4,9 @@
 \alias{upload_file}
 \title{Upload a local file to Google Drive}
 \usage{
-upload_file(token, file_path, title = NULL, description = NULL, ...)
+upload_file(file_path, title = NULL, description = NULL, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_path}{the full path to the file you want to upload}
 
 \item{title}{what to set in the "title" field of the resulting Google Drive file}

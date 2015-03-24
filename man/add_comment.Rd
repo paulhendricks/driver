@@ -4,11 +4,9 @@
 \alias{add_comment}
 \title{comment on a Google Drive file}
 \usage{
-add_comment(token, file_id, comment_text, ...)
+add_comment(file_id, comment_text, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 
