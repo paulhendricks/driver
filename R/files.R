@@ -74,8 +74,6 @@ copy_file <- function(file_id, ...){
 #'permission to do so. In the process it completely bypasses the trash bin, rendering
 #'the file unrecoverable by the user.
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
 #'
@@ -95,8 +93,6 @@ delete_file <- function(file_id, ...){
 #'@description \code{list_files} allows an authenticated user to retrieve the metadata
 #'associated with each file they have access to. For the metadata for a single file, see
 #'\code{\link{file_metadata}}.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param max_results the maximum number of results to return; any number between 1 and 1000.
 #'Set to 100 by default.
