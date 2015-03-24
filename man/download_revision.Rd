@@ -4,12 +4,10 @@
 \alias{download_revision}
 \title{Download a specific revision of a Google Drive file}
 \usage{
-download_revision(token, metadata = NULL, download_type, destination,
+download_revision(metadata = NULL, download_type, destination,
   file_id = NULL, version = NULL, overwrite = TRUE, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{metadata}{a metadata object retrieved from \code{\link{revision_metadata}},
 \code{\link{list_files}}, or \code{\link{file_metadata}}. If the latter, \code{version}
 must be supplied}
