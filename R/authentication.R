@@ -19,7 +19,7 @@
 driver_connect <- function(){
   app <- oauth_app("driver", getOption("driver.client_id"), getOption("driver.client_secret"))
   .state$driver_token <- oauth2.0_token(oauth_endpoints("google"), app = app,
-                                        scope = "https://www.googleapis.com/auth/drive", cache = FALSE)
+                                        scope = "https://www.googleapis.com/auth/drive", cache = TRUE)
   return(invisible())
 }
 
