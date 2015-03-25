@@ -3,3 +3,4 @@
 ^\.httr-oauth$
 ^\.travis\.yml$
 tests/testthat/token_file.rds.enc
+travis-tool.sh

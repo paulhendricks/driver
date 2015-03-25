@@ -192,7 +192,7 @@ untrash_file <- function(file_id, ...){
 #'@title Empties the trash
 #'@description empties the user's Google Drive "trash" folder.
 #'
-#'@param ...arguments to pass to httr's DELETE.
+#'@param ... arguments to pass to httr's DELETE.
 #'
 #'@return TRUE if the trash was successfully emptied, FALSE otherwise.
 #'@export
