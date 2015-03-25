@@ -16,6 +16,7 @@ before_install:
 
 install:
 - ./travis-tool.sh install_aptget r-cran-markdown r-cran-yaml r-cran-caTools r-cran-XML r-cran-stringi
+- ./travis-tool.sh install_deps
 - ./travis-tool.sh github_package hadley/testthat
 - ./travis-tool.sh github_package hadley/httr
 
