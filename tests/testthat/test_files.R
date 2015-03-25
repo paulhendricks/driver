@@ -68,7 +68,7 @@ test_that("File deletion works",{
 })
 
 test_that("File uploading works",{
-  file <- upload_file(token = file_path = system.file("test.jpeg", package = "driver"), title = "This is a test")
+  file <- upload_file(file_path = system.file("test.jpeg", package = "driver"), title = "This is a test")
   expect_equal(file$title, "This is a test")
   expect_equal(file$mimeType, "image/jpeg")
   result <- delete_file(file$id)

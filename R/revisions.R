@@ -23,8 +23,6 @@ simplify_response.rev_list <- function(x){
 #'@description retrieves the metadata associated with each revision of a specific
 #'Google Drive file.
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
 #'
@@ -33,9 +31,9 @@ simplify_response.rev_list <- function(x){
 #'
 #'@param ... further arguments to pass to httr's GET.
 #'@export
-list_revisions <- function(token, file_id, simplify = FALSE, ...){
+list_revisions <- function(file_id, simplify = FALSE, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/revisions")
-  results <- driver_get(parameters, "rev_list", token, ...)
+  results <- driver_get(parameters, "rev_list", ...)
   if(simplify){
     results <- simplify_response(results)
   }
@@ -46,8 +44,6 @@ list_revisions <- function(token, file_id, simplify = FALSE, ...){
 #'@description retrieves the metadata associated with a particular revision of a specific
 #'Google Drive file.
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
 #'
@@ -59,9 +55,9 @@ list_revisions <- function(token, file_id, simplify = FALSE, ...){
 #'@param ... further arguments to pass to httr's GET.
 #'
 #'@export
-revision_metadata <- function(token, file_id, rev_id, simplify = FALSE, ...){
+revision_metadata <- function(file_id, rev_id, simplify = FALSE, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/revisions/", rev_id)
-  result <- driver_get(parameters, "rev_metadata", token, ...)
+  result <- driver_get(parameters, "rev_metadata", ...)
   if(simplify){
     result <- simplify_response(result)
   }
@@ -72,8 +68,6 @@ revision_metadata <- function(token, file_id, rev_id, simplify = FALSE, ...){
 #'@description junks a specified revision of a Google Drive file. Note that some file types
 #'may not support revision deletion, in which case a 400 error will be returned.
 #'
-#'@param token a token, generated with \code{\link{driver_connect}}.
-#'
 #'@param file_id the ID of a file - or the full URL for accessing it via your browser.
 #'See \code{\link{file_metadata}} for further discussion.
 #'
@@ -82,17 +76,15 @@ revision_metadata <- function(token, file_id, rev_id, simplify = FALSE, ...){
 #'@param ... further arguments to pass to httr's DELETE.
 #'
 #'@export
-delete_revision <- function(token, file_id, rev_id, ...){
+delete_revision <- function(file_id, rev_id, ...){
   parameters <- paste0("files/", detect_full_url(file_id), "/revisions/", rev_id)
-  result <- driver_delete(parameters, token, ...)
+  result <- driver_delete(parameters, ...)
   return(check_result_status(result))
 }
 
 #'@title Download a specific revision of a Google Drive file
 #'@description download a specific revision of a Google Drive file in
 #'a user-specified format, and save it to disk.
-#'
-#'@param token a token, generated with \code{\link{driver_connect}}.
 #'
 #'@param metadata a metadata object retrieved from \code{\link{revision_metadata}},
 #'\code{\link{list_files}}, or \code{\link{file_metadata}}. If the latter, \code{version}
@@ -117,7 +109,7 @@ delete_revision <- function(token, file_id, rev_id, ...){
 #'
 #'@return TRUE if the file could be downloaded, FALSE or an error otherwise.
 #'@export
-download_revision <- function(token, metadata=NULL, download_type, destination, file_id=NULL, version = NULL, overwrite=TRUE, ...) {
+download_revision <- function(metadata=NULL, download_type, destination, file_id=NULL, version = NULL, overwrite=TRUE, ...) {
   
   if(is.null(metadata) & is.null(file_id)) {
     stop("file_id or metadata must be provided.")
@@ -139,14 +131,14 @@ download_revision <- function(token, metadata=NULL, download_type, destination, 
     
     file_id <- detect_full_url(file_id)
     if(any("POSIXct" %in% class(version_))) {
-      rev_list <- list_revisions(token, file_id = file_id, ...)
+      rev_list <- list_revisions(file_id = file_id, ...)
       dates <- sapply(rev_list$items, function(x) x$modifiedDate)
       dates <- as.POSIXct(dates, format = "%Y-%m-%dT%H:%M:%OSZ", tz="UTC")
       version_index <- suppressWarnings(max(which(dates <= version_)))
       if(version_index == -Inf) stop('File created before date provided')
       metadata <- rev_list$items[[version_index]]
     } else {
-      metadata <- revision_metadata(token, file_id, version_)
+      metadata <- revision_metadata(file_id, version_)
     }
   }
   
@@ -156,7 +148,6 @@ download_revision <- function(token, metadata=NULL, download_type, destination, 
     download_url <- metadata$selfLink
   }
   
-  result <- GET(download_url, config(token = token, useragent = "driver - https://github.com/Ironholds/driver"),
-                write_disk(destination, overwrite), ...)
-  return(check_result_status(result))
+  driver_get(download_url, out_class = NULL, write_disk(destination, overwrite), ...)
+  return(TRUE)
 }

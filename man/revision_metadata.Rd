@@ -4,11 +4,9 @@
 \alias{revision_metadata}
 \title{Get the metadata of a single revision of a Google Drive file}
 \usage{
-revision_metadata(token, file_id, rev_id, simplify = FALSE, ...)
+revision_metadata(file_id, rev_id, simplify = FALSE, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 

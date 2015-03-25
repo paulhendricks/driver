@@ -7,7 +7,7 @@
 empty_trash(...)
 }
 \arguments{
-\item{...arguments}{to pass to httr's DELETE.}
+\item{...}{arguments to pass to httr's DELETE.}
 }
 \value{
 TRUE if the trash was successfully emptied, FALSE otherwise.

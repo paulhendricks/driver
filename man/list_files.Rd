@@ -18,8 +18,6 @@ Plugging this into the \code{page_token} parameter provides for query continuati
 list, to make it less nested, headachey and impossible to read. Set to FALSE by default.}
 
 \item{...}{further arguments to pass to httr's GET.}
-
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
 }
 \description{
 \code{list_files} allows an authenticated user to retrieve the metadata

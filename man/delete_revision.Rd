@@ -4,11 +4,9 @@
 \alias{delete_revision}
 \title{remove a particular revision of a Google Drive file}
 \usage{
-delete_revision(token, file_id, rev_id, ...)
+delete_revision(file_id, rev_id, ...)
 }
 \arguments{
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
-
 \item{file_id}{the ID of a file - or the full URL for accessing it via your browser.
 See \code{\link{file_metadata}} for further discussion.}
 

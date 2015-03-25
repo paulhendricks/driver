@@ -11,8 +11,6 @@ delete_file(file_id, ...)
 See \code{\link{file_metadata}} for further discussion.}
 
 \item{...}{further arguments to pass to httr's DELETE.}
-
-\item{token}{a token, generated with \code{\link{driver_connect}}.}
 }
 \value{
 TRUE if the file was successfully deleted, FALSE or an error otherwise.
