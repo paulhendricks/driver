@@ -29,6 +29,7 @@ test_that("Retrieving metadata for a single simplified file works", {
 
 test_that("Using full URLs works",{
   full_url <- list_files(max_results = 1)$items[[1]]$alternateLink
+  cat(full_url)
   files <- file_metadata(file_id = full_url)
 })
 
